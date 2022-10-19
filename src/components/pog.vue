@@ -1,58 +1,75 @@
 <template>
-    <div class="wrapper">
+    <div class="gameCard">
         <img v-bind:src="game.image" />
-        <div class="gameCard">
-            <h2>
-                {{ game.name }}
-            </h2>
-            <p>
-                {{ game.description }}
-            </p>
-            <p>{{ game.players }} players {{ game.time }}</p>
+        <div class="description">
+            <div class="test">
+                <div class="title">
+                    <h2>
+                        {{ game.name }}
+                    </h2>
+                    {{ game.description }}
+                </div>
+                <div v-if="avis.note > 0" class="avis">
+                    {{ avis.note }}
+                    <Star :width="width" />
+                </div>
+            </div>
+            <div class="info">
+                <p>{{ game.players }} players {{ game.time }}</p>
+            </div>
         </div>
     </div>
-    <button v-on:click="boom"></button>
 </template>
 
 <script>
+import Star from "@/components/icons/IconStar.vue";
 export default {
+    components: {
+        Star,
+    },
     props: {
+        width: {
+            type: [Number, String],
+            default: 13,
+        },
         game: {
             type: Object,
             default: () => ({}),
         },
-    },
-    mounted() {},
-    methods: {
-        boom() {
-            this.game.description = "lol";
-            console.log(this.game);
+        avis: {
+            type: Object,
+            default: () => ({}),
         },
     },
-    // data() {
-    //     return {
-    //         game: this.game,
-    //     };
-    // },
 };
 </script>
 <style scoped>
-button {
-    background-color: red;
-    width: 100px;
-    height: 10px;
+.test {
+    display: flex;
+    justify-content: space-between;
+    white-space: pre-line;
+}
+.avis {
+    display: flex;
+    align-items: center;
+}
+
+.info {
+    margin-top: auto;
 }
 img {
     width: 15vw;
+    /* height: auto; */
     border-radius: 10px;
 }
-.gameCard {
+.description {
     width: 65vw;
     display: flex;
     flex-direction: column;
     margin-left: 2%;
 }
-.wrapper {
+.gameCard {
+    margin: 2%;
     width: 80vw;
     display: flex;
     flex-direction: row;

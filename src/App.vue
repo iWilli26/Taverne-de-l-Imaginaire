@@ -4,25 +4,17 @@ import pog from "./components/pog.vue";
 
 <template>
     <header>
-        <pog v-bind:game="game1" />
-        <pog :game="game2" />
+        <div class="content">
+            <pog v-bind:game="game1" :avis="avis" />
+            <pog :game="game2" />
+            <button v-on:click="boom">HAHAHAHAHA</button>
+        </div>
     </header>
-    
 </template>
 <script>
-let game1 = {
-    name: "Shadow Hunter",
-    description: "A game of deception and betrayal",
-    players: "5-8",
-    time: "30-60 minutes",
-    image: "./shadow.jpg",
-};
-let game2 = {
-    name: "Secret Hitler",
-    description: "A game of nazism and deception",
-    players: "5-10",
-    time: "2 years",
-    image: "./hitler.jpg",
+let avis = {
+    note: 9,
+    comment: "This game is great!",
 };
 export default {
     name: "App",
@@ -31,15 +23,35 @@ export default {
     },
     data() {
         return {
-            game1: game1,
-            game2: game2,
+            game1: {
+                id: 1,
+                name: "Shadow Hunter",
+                description: "A game of deception and betrayal",
+                players: "5-8",
+                time: "30-60 minutes",
+                image: "./shadow.jpg",
+            },
+            game2: {
+                id: 2,
+                name: "Secret Hitler",
+                description:
+                    "A game of nazism and deception.\nKill Hitler before he kills you!",
+                players: "5-10",
+                time: "2 years",
+                image: "./hitler.jpg",
+            },
+            avis1: avis,
         };
     },
-    
+    methods: {},
 };
 </script>
 <style scoped>
-
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 /* header {
     line-height: 1.5;
     max-height: 100vh;
