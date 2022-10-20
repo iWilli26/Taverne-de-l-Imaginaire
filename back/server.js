@@ -2,7 +2,10 @@ let express = require("express");
 const { Pool } = require("pg");
 let app = express();
 let pg = require("pg").Pool;
-
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
 const pool = new Pool({
     user: "application",
     host: "localhost",
@@ -11,7 +14,7 @@ const pool = new Pool({
     port: "5432",
 });
 
-app.get("/game/", (request, response) => {
+app.get("/games/", (request, response) => {
     pool.query(
         'SELECT * FROM "LaTaverneDeLimaginaire".game',
         (error, results) => {

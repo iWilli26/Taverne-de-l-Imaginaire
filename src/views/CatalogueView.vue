@@ -1,5 +1,6 @@
 <script setup>
 import GameCard from "../components/GameCard.vue";
+import axios from "axios";
 </script>
 
 <template>
@@ -72,6 +73,7 @@ import GameCard from "../components/GameCard.vue";
         <div class="content">
             <GameCard v-bind:game="game1" :avis="avis1" />
             <GameCard :game="game2" :avis="avis2" />
+            <button @click="fetchGames"></button>
         </div>
     </main>
 </template>
@@ -96,12 +98,32 @@ const onSubmit = () => {
 };
 export default {
     name: "Catalogue",
+    setup() {
+        const state = reactive({
+            games: [],
+        });
+
+        const fetchGames = () => {
+            axios
+                .get("http://localhost:8080/games/")
+                .then(function (response) {
+                    // handle success
+                    console.log(response.data);
+                    state.games = response.data;
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        };
+        fetchGames();
+    },
     components: {
         GameCard,
     },
     data() {
         return {
-            isAdmin: true,
+            isAdmin: false,
             game1: {
                 id: 1,
                 name: "Shadow Hunter",
@@ -129,7 +151,21 @@ export default {
             },
         };
     },
-    methods: {},
+    methods: {
+        fetchGames() {
+            axios
+                .get("http://localhost:8080/games/")
+                .then(function (response) {
+                    // handle success
+                    console.log(response.data);
+                    // state.games = response.data;
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+        },
+    },
 };
 </script>
 

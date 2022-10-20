@@ -49,12 +49,7 @@ export default {
             ],
         };
     },
-    methods: {
-        routing() {
-            console.log(this.id);
-            router.push("/");
-        },
-    },
+    methods: {},
 };
 </script>
 
