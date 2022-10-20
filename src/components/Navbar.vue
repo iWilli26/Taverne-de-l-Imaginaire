@@ -1,6 +1,11 @@
 <template>
     <nav>
-        <img id="logo" src="../assets/dragon.jpg" alt="my-logo" />
+        <img
+            @click="$router.push({ path: '/' })"
+            id="logo"
+            src="../assets/dragon.jpg"
+            alt="my-logo"
+        />
         <div @click="$router.push({ path: '/' })" class="menu-item">Home</div>
         <div @click="$router.push({ path: '/about' })" class="menu-item">
             About
@@ -57,6 +62,7 @@ export default {
 #logo {
     width: 75px;
     margin-right: auto;
+    cursor: pointer;
 }
 nav {
     background-color: white;

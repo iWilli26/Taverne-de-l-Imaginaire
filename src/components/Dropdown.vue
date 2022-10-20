@@ -43,18 +43,17 @@ export default {
 .active {
     background-color: #f5f5f5;
 }
-nav .menu-item svg {
+.menu-item svg {
     position: relative;
     width: 10px;
     margin-left: 5px;
 }
-nav .menu-item .sub-menu {
+.menu-item .sub-menu {
     position: absolute;
     background-color: #f5f5f5;
     top: 73px;
     left: 0;
     width: 100%;
-    border-radius: 0px 0px 16px 16px;
 }
 .menu-item {
     display: flex;
@@ -63,5 +62,9 @@ nav .menu-item .sub-menu {
     padding: 0.25rem;
     cursor: pointer;
     z-index: 10;
+}
+.menu-item:hover {
+    cursor: pointer;
+    background-color: #dcdcdc;
 }
 </style>
