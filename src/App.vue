@@ -1,25 +1,21 @@
 <script setup>
-import pog from "./components/pog.vue";
+import GameCard from "./components/GameCard.vue";
+import NavBar from "./components/Navbar.vue";
 </script>
 
 <template>
     <header>
-        <div class="content">
-            <pog v-bind:game="game1" :avis="avis" />
-            <pog :game="game2" />
-            <button v-on:click="boom">HAHAHAHAHA</button>
-        </div>
+        <NavBar />
+        <router-view />
+        
     </header>
 </template>
 <script>
-let avis = {
-    note: 9,
-    comment: "This game is great!",
-};
 export default {
     name: "App",
     components: {
-        pog,
+        NavBar,
+        GameCard,
     },
     data() {
         return {
@@ -40,13 +36,28 @@ export default {
                 time: "2 years",
                 image: "./hitler.jpg",
             },
-            avis1: avis,
+            avis1: {
+                note: 9,
+                comment: "This game is great!",
+            },
+            avis2: {
+                note: 0,
+                comment: "This game is terrible!",
+            },
         };
     },
     methods: {},
 };
 </script>
 <style scoped>
+html,
+body {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+#app {
+    padding: 0px !important;
+    margin: 0px !important;}
 .content {
     display: flex;
     flex-direction: column;

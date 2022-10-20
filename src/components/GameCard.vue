@@ -9,7 +9,7 @@
                     </h2>
                     {{ game.description }}
                 </div>
-                <div v-if="avis.note > 0" class="avis">
+                <div v-if="avis.note !== undefined" class="avis">
                     {{ avis.note }}
                     <Star :width="width" />
                 </div>
@@ -30,7 +30,7 @@ export default {
     props: {
         width: {
             type: [Number, String],
-            default: 13,
+            default: 20,
         },
         game: {
             type: Object,
@@ -52,14 +52,17 @@ export default {
 .avis {
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
 }
 
 .info {
     margin-top: auto;
 }
 img {
-    width: 15vw;
-    /* height: auto; */
+    width: 10vw;
+    height: auto;
+    margin: auto;
     border-radius: 10px;
 }
 .description {
