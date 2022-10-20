@@ -7,7 +7,6 @@ import GameCard from "../components/GameCard.vue";
         <div class="content">
             <GameCard v-bind:game="game1" :avis="avis1" />
             <GameCard :game="game2" :avis="avis2" />
-            <button v-on:click="boom">HAHAHAHAHA</button>
         </div>
     </main>
 </template>
