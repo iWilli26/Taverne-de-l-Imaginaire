@@ -7,7 +7,6 @@ import NavBar from "./components/Navbar.vue";
     <header>
         <NavBar />
         <router-view />
-        
     </header>
 </template>
 <script>
@@ -15,36 +14,9 @@ export default {
     name: "App",
     components: {
         NavBar,
-        GameCard,
     },
     data() {
-        return {
-            game1: {
-                id: 1,
-                name: "Shadow Hunter",
-                description: "A game of deception and betrayal",
-                players: "5-8",
-                time: "30-60 minutes",
-                image: "./shadow.jpg",
-            },
-            game2: {
-                id: 2,
-                name: "Secret Hitler",
-                description:
-                    "A game of nazism and deception.\nKill Hitler before he kills you!",
-                players: "5-10",
-                time: "2 years",
-                image: "./hitler.jpg",
-            },
-            avis1: {
-                note: 9,
-                comment: "This game is great!",
-            },
-            avis2: {
-                note: 0,
-                comment: "This game is terrible!",
-            },
-        };
+        return {};
     },
     methods: {},
 };
@@ -57,48 +29,10 @@ body {
 }
 #app {
     padding: 0px !important;
-    margin: 0px !important;}
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-/* header {
-    line-height: 1.5;
-    max-height: 100vh;
+    margin: 0px !important;
 }
 
-.logo {
-    display: block;
-    margin: 0 auto 2rem;
-}
-
-nav {
-    width: 100%;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-    color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-    background-color: transparent;
-}
-
-nav a {
-    display: inline-block;
-    padding: 0 1rem;
-    border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-    border: 0;
-} */
-/* 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
     header {
         display: flex;
         place-items: center;

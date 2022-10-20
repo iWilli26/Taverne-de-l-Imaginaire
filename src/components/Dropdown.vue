@@ -1,21 +1,29 @@
 <template>
-    <div class="menu-item" @click="isOpen = !isOpen">
-        <a href="#">
+    <div
+        class="menu-item"
+        @click="isOpen = !isOpen"
+        v-bind:class="{ active: isOpen }"
+    >
+        <div class="button">
             {{ title }}
-        </a>
-        <svg viewBox="0 0 1030 638" width="10">
-            <path
-                d="M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z"
-                fill="#FFF"
-            ></path>
-        </svg>
-        <transition name="fade" appear>
-            <div class="sub-menu" v-if="isOpen">
-                <div v-for="(item, i) in items" :key="i" class="menu-item">
-                    <a :href="item.link">{{ item.title }}</a>
+            <svg viewBox="0 0 1030 638" width="10">
+                <path
+                    d="M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z"
+                    fill="#000"
+                ></path>
+            </svg>
+        </div>
+
+        <div class="sub-menu" v-if="isOpen">
+            <div v-for="(item, i) in items" :key="i" class="menu-item">
+                <div
+                    @click="$router.push({ path: item.link })"
+                    class="sub-menu-item"
+                >
+                    {{ item.title }}
                 </div>
             </div>
-        </transition>
+        </div>
     </div>
 </template>
 
@@ -32,25 +40,28 @@ export default {
 </script>
 
 <style>
+.active {
+    background-color: #f5f5f5;
+}
 nav .menu-item svg {
+    position: relative;
     width: 10px;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 nav .menu-item .sub-menu {
     position: absolute;
-    background-color: #222;
-    top: calc(100% + 18px);
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content;
+    background-color: #f5f5f5;
+    top: 73px;
+    left: 0;
+    width: 100%;
     border-radius: 0px 0px 16px 16px;
 }
-.fade-enter-active,
-.fade-leave-active {
-    transition: all 0.5s ease-out;
-}
-.fade-enter,
-.fade-leave-to {
-    opacity: 0;
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    cursor: pointer;
+    z-index: 10;
 }
 </style>

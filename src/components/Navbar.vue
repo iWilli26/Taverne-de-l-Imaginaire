@@ -1,49 +1,74 @@
 <template>
     <nav>
-        <div class="menu-item"><a href="/">Home</a></div>
-        <div class="menu-item"><a href="/about">About</a></div>
-        <!-- <Dropdown title="Services" :items="services" /> -->
-        <div class="menu-item"><a href="/cats">Contact</a></div>
+        <img id="logo" src="../assets/dragon.jpg" alt="my-logo" />
+        <div @click="$router.push({ path: '/' })" class="menu-item">Home</div>
+        <div @click="$router.push({ path: '/about' })" class="menu-item">
+            About
+        </div>
+        <div @click="$router.push({ path: '/contact' })" class="menu-item">
+            Contact
+        </div>
+        <Dropdown title="Profile" :items="profiles" />
     </nav>
 </template>
 
 <script>
+import router from "@/router";
 import Dropdown from "./Dropdown.vue";
+import logo from "@/assets/logo.svg";
 export default {
     name: "navbar",
     components: {
         Dropdown,
     },
+    setup() {
+        return {
+            logo,
+        };
+    },
     data() {
         return {
-            services: [
+            profiles: [
                 {
-                    title: "Web",
-                    link: "#",
+                    title: "Login",
+                    link: "/",
                 },
                 {
-                    title: "Design",
-                    link: "#",
+                    title: "Mon Profil",
+                    link: "/about",
                 },
                 {
-                    title: "Videos",
-                    link: "#",
+                    title: "Logout",
+                    link: "/contact",
                 },
             ],
         };
+    },
+    methods: {
+        routing() {
+            console.log(this.id);
+            router.push("/");
+        },
     },
 };
 </script>
 
 <style scoped>
+#logo {
+    width: 75px;
+    margin-right: auto;
+}
 nav {
+    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 nav .menu-item {
-    color: #fff;
-    padding: 10px 20px;
+    color: #000;
+    /* height: 100%; */
+    padding: 25px 25px;
     position: relative;
     text-align: center;
     border-bottom: 3px solid transparent;
@@ -52,7 +77,8 @@ nav .menu-item {
 }
 nav .menu-item.active,
 nav .menu-item:hover {
-    background-color: #444;
+    cursor: pointer;
+    background-color: #f1f1f1;
     border-bottom-color: #ff5858;
 }
 nav .menu-item a {
