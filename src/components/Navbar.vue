@@ -7,8 +7,8 @@
             alt="my-logo"
         />
         <div @click="$router.push({ path: '/' })" class="menu-item">Home</div>
-        <div @click="$router.push({ path: '/about' })" class="menu-item">
-            About
+        <div @click="$router.push({ path: '/catalogue' })" class="menu-item">
+            Catalogue
         </div>
         <div @click="$router.push({ path: '/contact' })" class="menu-item">
             Contact
@@ -74,7 +74,7 @@ nav {
 nav .menu-item {
     color: #000;
     /* height: 100%; */
-    padding: 25px 25px;
+    padding: 25px 15px;
     position: relative;
     text-align: center;
     border-bottom: 3px solid transparent;
