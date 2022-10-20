@@ -17,7 +17,7 @@ const pool = new Pool({
     port: "5432",
 });
 
-app.get("/games/", (request, response) => {
+app.get("/games", (request, response) => {
     pool.query(
         'SELECT * FROM "LaTaverneDeLimaginaire".game',
         (error, results) => {
@@ -29,14 +29,13 @@ app.get("/games/", (request, response) => {
     );
 });
 
-app.post("/signup/", (request, response) => {
+app.post("/signup", (request, response) => {
     let firstName = request.body.firstName;
     let lastName = request.body.lastName;
     let email = request.body.email;
     let password = request.body.password;
-
     pool.query(
-        `INSERT INTO "LaTaverneDeLimaginaire".user (last_name, first_name, email_address, password) VALUES (${lastName}, ${firstName}, ${email}, ${password})`,
+        `INSERT INTO "LaTaverneDeLimaginaire".user (last_name, first_name, email_address, password) VALUES ('${lastName}', '${firstName}', '${email}', '${password}')`,
         (error, results) => {
             if (error) {
                 throw error;

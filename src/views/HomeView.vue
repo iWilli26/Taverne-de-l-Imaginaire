@@ -4,11 +4,7 @@ import GameCard from "../components/GameCard.vue";
 
 <template>
     <main>
-        <div class="content">
-            
-            <GameCard v-bind:game="game1" :avis="avis1" />
-            <GameCard :game="game2" :avis="avis2" />
-        </div>
+        <div class="content">HAHAHAHAHAHAHAHAHAHAHHAHAHAHAHA</div>
     </main>
 </template>
 
@@ -19,33 +15,7 @@ export default {
         GameCard,
     },
     data() {
-        return {
-            game1: {
-                id: 1,
-                name: "Shadow Hunter",
-                description: "A game of deception and betrayal",
-                players: "5-8",
-                time: "30-60 minutes",
-                image: "./shadow.jpg",
-            },
-            game2: {
-                id: 2,
-                name: "Secret Hitler",
-                description:
-                    "A game of nazism and deception.\nKill Hitler before he kills you!",
-                players: "5-10",
-                time: "2 years",
-                image: "./hitler.jpg",
-            },
-            avis1: {
-                note: 9,
-                comment: "This game is great!",
-            },
-            avis2: {
-                note: 0,
-                comment: "This game is terrible!",
-            },
-        };
+        return {};
     },
     methods: {},
 };
