@@ -1,23 +1,19 @@
 <script setup>
-import GameCard from "../components/GameCard.vue";
+import Login from "../components/Login.vue";
 </script>
 
 <template>
     <main>
-        <div class="content">HAHAHAHAHAHAHAHAHAHAHHAHAHAHAHA</div>
+        <Login />
     </main>
 </template>
 
 <script>
 export default {
-    name: "Home",
+    name: "Login",
     components: {
-        GameCard,
+        Login,
     },
-    data() {
-        return {};
-    },
-    methods: {},
 };
 </script>
 

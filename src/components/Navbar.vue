@@ -7,12 +7,13 @@
             alt="my-logo"
         />
         <div @click="$router.push({ path: '/' })" class="menu-item">Home</div>
-        <div @click="$router.push({ path: '/about' })" class="menu-item">
-            About
+        <div @click="$router.push({ path: '/catalogue' })" class="menu-item">
+            Catalogue
         </div>
         <div @click="$router.push({ path: '/contact' })" class="menu-item">
             Contact
         </div>
+
         <Dropdown title="Profile" :items="profiles" />
     </nav>
 </template>
@@ -35,26 +36,25 @@ export default {
         return {
             profiles: [
                 {
-                    title: "Login",
-                    link: "/",
+                    title: "Créer un compte",
+                    link: "/account/register",
+                },
+                {
+                    title: "Se connecter",
+                    link: "/account/login",
                 },
                 {
                     title: "Mon Profil",
-                    link: "/about",
+                    link: "/account",
                 },
                 {
                     title: "Logout",
-                    link: "/contact",
+                    link: "/account/logout",
                 },
             ],
         };
     },
-    methods: {
-        routing() {
-            console.log(this.id);
-            router.push("/");
-        },
-    },
+    methods: {},
 };
 </script>
 
@@ -74,7 +74,7 @@ nav {
 nav .menu-item {
     color: #000;
     /* height: 100%; */
-    padding: 25px 25px;
+    padding: 25px 15px;
     position: relative;
     text-align: center;
     border-bottom: 3px solid transparent;
