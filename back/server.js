@@ -46,7 +46,6 @@ app.post("/signup", (request, response) => {
             if (error) {
                 throw error
             }
-            console.log(JSON.stringify(results.rows).length == 0)
             if( JSON.stringify(results.rows).length != 0 ){
                 response
                     .status(200)
@@ -76,6 +75,25 @@ app.post("/signup", (request, response) => {
 
 app.post("login", (request, response) => {
     let email = request.body.email
+    pool.query(
+        `SELECT email_address, password FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
+        (error, results) => {
+            if (error) {
+                throw error
+            }
+            if( results.rows.length == 1 ){
+                bcrypt.compare(request.body.password, results[0].password, (error, results) => {
+                    response
+                        .status(200)
+                        .send(results)
+                })
+            }
+            else {
+                response
+                    .status(200)
+                    .send(`Address already registered`);
+            }
+        })
 })
 
 app.listen(8080);
