@@ -1,4 +1,5 @@
 <script setup>
+import GameCard from "../components/GameCard.vue";
 import axios from "axios";
 </script>
 
@@ -6,6 +7,12 @@ import axios from "axios";
     <main>
         <div class="form">
             <el-form :model="form" label-width="120px">
+                <el-form-item label="Last Name">
+                    <el-input class="input" v-model="form.name" />
+                </el-form-item>
+                <el-form-item label="First Name">
+                    <el-input class="input" v-model="form.fname" />
+                </el-form-item>
                 <el-form-item label="Email">
                     <el-input class="input" v-model="form.email" />
                 </el-form-item>
@@ -18,7 +25,7 @@ import axios from "axios";
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit"
-                        >Login</el-button
+                        >Signup</el-button
                     >
                 </el-form-item>
             </el-form>
@@ -31,6 +38,8 @@ import { reactive } from "vue";
 
 // do not use same name with ref
 const form = reactive({
+    name: "",
+    fname: "",
     email: "",
     password: "",
 });
@@ -41,19 +50,26 @@ const ValidateEmail = () => {
     return false;
 };
 const onSubmit = () => {
-    if (form.email === "" || form.password === "") {
+    if (
+        form.name === "" ||
+        form.fname === "" ||
+        form.email === "" ||
+        form.password === ""
+    ) {
         alert("Please fill all the fields");
     } else if (ValidateEmail() === false) {
         alert("Please enter a valid email address");
     } else {
         axios
-            .post("http://localhost:8080/login/", {
+            .post("http://localhost:8080/signup/", {
+                firstName: form.fname,
+                lastName: form.name,
                 email: form.email,
                 password: form.password,
             })
             .then(function (response) {
-                if (response.data) {
-                    alert("Login Successful");
+                if (response.status === 201) {
+                    alert("User created");
                 }
             })
             .catch(function (error) {

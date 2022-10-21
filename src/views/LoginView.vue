@@ -1,18 +1,18 @@
 <script setup>
-import Register from "../components/Register.vue";
+import Login from "../components/Login.vue";
 </script>
 
 <template>
     <main>
-        <Register />
+        <Login />
     </main>
 </template>
 
 <script>
 export default {
-    name: "Register",
+    name: "Login",
     components: {
-        Register,
+        Login,
     },
 };
 </script>
