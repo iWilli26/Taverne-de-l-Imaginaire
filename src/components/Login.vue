@@ -1,5 +1,6 @@
 <script setup>
 import axios from "axios";
+import { useUserStore } from "../stores/user.js";
 </script>
 
 <template>
@@ -40,25 +41,14 @@ const ValidateEmail = () => {
     }
     return false;
 };
+
 const onSubmit = () => {
     if (form.email === "" || form.password === "") {
         alert("Please fill all the fields");
     } else if (ValidateEmail() === false) {
         alert("Please enter a valid email address");
     } else {
-        axios
-            .post("http://localhost:8080/login/", {
-                email: form.email,
-                password: form.password,
-            })
-            .then(function (response) {
-                if (response.data) {
-                    alert("Login Successful");
-                }
-            })
-            .catch(function (error) {
-                console.log(error.response);
-            });
+        useUserStore().login({ email: form.email, password: form.password });
     }
 };
 export default {
@@ -68,7 +58,16 @@ export default {
     data() {
         return {};
     },
-    methods: {},
+    mounted() {
+        //DEBT: déplacer ce code à un endroit plus adapté.
+        const user = useUserStore().user;
+        if (user) {
+            useUserStore().login({
+                email: user.email_address,
+                password: user.password,
+            });
+        }
+    },
 };
 </script>
 

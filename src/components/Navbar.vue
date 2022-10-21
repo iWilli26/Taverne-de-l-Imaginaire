@@ -22,6 +22,7 @@
 import router from "@/router";
 import Dropdown from "./Dropdown.vue";
 import logo from "@/assets/logo.svg";
+import { useUserStore } from "../stores/user";
 export default {
     name: "navbar",
     components: {
@@ -34,6 +35,7 @@ export default {
     },
     data() {
         return {
+            user: useUserStore().user,
             profiles: [
                 {
                     title: "Créer un compte",

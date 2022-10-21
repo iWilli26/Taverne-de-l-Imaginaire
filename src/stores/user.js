@@ -2,33 +2,34 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 
-export const useAuthStore = defineStore({
-    id: "auth",
+export const useUserStore = defineStore({
+    id: "user",
     state: () => ({
         // initialize state from local storage to enable user to stay logged in
         user: JSON.parse(localStorage.getItem("user")),
         returnUrl: null,
     }),
     actions: {
-        async login(username, password) {
-            try {
-                const user = await axios.post(
-                    `localhost:8080/authenticate`,
-                    { username, password }
-                );
-
-                // update pinia state
-                this.user = user;
-
-                // store user details and jwt in local storage to keep user logged in between page refreshes
-                localStorage.setItem("user", JSON.stringify(user));
-
-                // redirect to previous url or default to home page
-                router.push(this.returnUrl || "/");
-            } catch (error) {
-                const alertStore = useAlertStore();
-                alertStore.error(error);
-            }
+        login({ email, password }) {
+            axios
+                .post("http://localhost:8080/login/", {
+                    email: email,
+                    password: password,
+                })
+                .then(function (response) {
+                    console.log(response.data.error);
+                    if (response.data.error !== undefined) {
+                        alert(response.data.error);
+                    } else {
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(response.data.data)
+                        );
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         logout() {
             this.user = null;

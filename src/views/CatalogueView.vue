@@ -15,60 +15,12 @@ import axios from "axios";
 
 <script>
 import { reactive } from "vue";
-
-// do not use same name with ref
-const form = reactive({
-    name: "",
-    fname: "",
-    email: "",
-    password: "",
-});
-
-const onSubmit = () => {
-    if (
-        form.name === "" ||
-        form.fname === "" ||
-        form.email === "" ||
-        form.password === ""
-    ) {
-        alert("Please fill all the fields");
-    } else {
-        axios
-            .post("http://localhost:8080/signup/", {
-                firstName: form.fname,
-                lastName: form.name,
-                email: form.email,
-                password: form.password,
-            })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error.response);
-            });
-    }
-};
 export default {
     name: "Catalogue",
     setup() {
         const state = reactive({
             games: [],
         });
-
-        const fetchGames = () => {
-            axios
-                .get("http://localhost:8080/games/")
-                .then(function (response) {
-                    // handle success
-                    console.log(response.data);
-                    state.games = response.data;
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-        };
-        fetchGames();
     },
     components: {
         GameCard,

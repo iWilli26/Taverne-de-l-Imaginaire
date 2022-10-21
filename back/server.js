@@ -37,7 +37,7 @@ app.post("/signup", (request, response) => {
     let email = request.body.email;
     let password = request.body.password;
     pool.query(
-        `SELECT email_address, password FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
+        `SELECT email_address FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
         (error, results) => {
             if (results.rows.length >= 1) {
                 response.status(400).json("Email already exists");
@@ -60,7 +60,7 @@ app.post("/signup", (request, response) => {
 app.post("/login", (request, response) => {
     let email = request.body.email;
     pool.query(
-        `SELECT email_address, password FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
+        `SELECT * FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
         (error, results) => {
             if (results.rows.length == 1) {
                 bcrypt.hash(request.body.password, 10, function (err, hash) {
@@ -74,12 +74,20 @@ app.post("/login", (request, response) => {
                             if (err) {
                                 throw err;
                             }
-                            response.status(200).send(result);
+                            if (result) {
+                                response.status(200).send({
+                                    data: results.rows[0],
+                                    error: undefined,
+                                });
+                            }
                         }
                     );
                 });
             } else if (results.rows.length == 0) {
-                response.status(200).send(`User not found`);
+                response.status(200).send({
+                    data: null,
+                    error: "Email does not exist",
+                });
             }
         }
     );
