@@ -13,6 +13,7 @@
         <div @click="$router.push({ path: '/contact' })" class="menu-item">
             Contact
         </div>
+
         <Dropdown title="Profile" :items="profiles" />
     </nav>
 </template>
@@ -35,16 +36,20 @@ export default {
         return {
             profiles: [
                 {
-                    title: "Login",
-                    link: "/",
+                    title: "Créer un compte",
+                    link: "/account/register",
+                },
+                {
+                    title: "Se connecter",
+                    link: "/account/login",
                 },
                 {
                     title: "Mon Profil",
-                    link: "/about",
+                    link: "/account",
                 },
                 {
                     title: "Logout",
-                    link: "/contact",
+                    link: "/account/logout",
                 },
             ],
         };

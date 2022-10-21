@@ -5,28 +5,6 @@ import axios from "axios";
 
 <template>
     <main>
-        <div v-if="isAdmin" class="form">
-            <el-form :model="form" label-width="120px">
-                <el-form-item label="Last Name">
-                    <el-input class="input" v-model="form.name" />
-                </el-form-item>
-                <el-form-item label="First Name">
-                    <el-input class="input" v-model="form.fname" />
-                </el-form-item>
-                <el-form-item label="Email">
-                    <el-input class="input" v-model="form.email" />
-                </el-form-item>
-                <el-form-item label="Password">
-                    <el-input class="input" v-model="form.password" />
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit"
-                        >Signup</el-button
-                    >
-                    <el-button>Cancel</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
         <div class="content">
             <GameCard v-bind:game="game1" :avis="avis1" />
             <GameCard :game="game2" :avis="avis2" />
@@ -97,7 +75,6 @@ export default {
     },
     data() {
         return {
-            isAdmin: false,
             game1: {
                 id: 1,
                 name: "Shadow Hunter",
