@@ -97,7 +97,7 @@ export default {
     },
     data() {
         return {
-            isAdmin: false,
+            isAdmin: true,
             game1: {
                 id: 1,
                 name: "Shadow Hunter",
