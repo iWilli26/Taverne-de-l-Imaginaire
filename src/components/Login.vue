@@ -49,6 +49,8 @@ const onSubmit = () => {
         alert("Please enter a valid email address");
     } else {
         useUserStore().login({ email: form.email, password: form.password });
+
+        // $router.push({ path: "/" });
     }
 };
 export default {
@@ -60,13 +62,13 @@ export default {
     },
     mounted() {
         //DEBT: déplacer ce code à un endroit plus adapté.
-        const user = useUserStore().user;
-        if (user) {
-            useUserStore().login({
-                email: user.email_address,
-                password: user.password,
-            });
-        }
+        // const user = JSON.parse(sessionStorage.getItem("user"));
+        // if (user) {
+        //     useUserStore().login({
+        //         email: user.data.email_address,
+        //         password: user.data.password,
+        //     });
+        // }
     },
 };
 </script>

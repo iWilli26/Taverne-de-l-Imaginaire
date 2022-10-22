@@ -36,54 +36,56 @@ app.post("/signup", (request, response) => {
     let lastName = request.body.lastName;
     let email = request.body.email;
     let password = request.body.password;
-    pool.query(
-        `SELECT email_address FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
-        (error, results) => {
-            if (results.rows.length >= 1) {
-                response.status(400).json("Email already exists");
-            } else {
-                pool.query(
-                    `INSERT INTO "LaTaverneDeLimaginaire".user (last_name, first_name, email_address, password) VALUES ('${lastName}', '${firstName}', '${email}', '${password}')`,
-                    (error, results) => {
-                        if (error) {
-                            throw error;
-                        }
-                        response
-                            .status(201)
-                            .send(`User added with ID: ${results.insertId}`);
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(password, salt, function (err, hash) {
+            pool.query(
+                `SELECT email_address FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
+                (error, results) => {
+                    if (results.rows.length >= 1) {
+                        response.status(400).json("Email already exists");
+                    } else {
+                        pool.query(
+                            `INSERT INTO "LaTaverneDeLimaginaire".user (last_name, first_name, email_address, password) VALUES ('${lastName}', '${firstName}', '${email}', '${hash}')`,
+                            (error, results) => {
+                                if (error) {
+                                    throw error;
+                                }
+                                response
+                                    .status(201)
+                                    .send(
+                                        `User added with ID: ${results.insertId}`
+                                    );
+                            }
+                        );
                     }
-                );
-            }
-        }
-    );
+                }
+            );
+        });
+    });
 });
+
 app.post("/login", (request, response) => {
     let email = request.body.email;
     pool.query(
         `SELECT * FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
         (error, results) => {
             if (results.rows.length == 1) {
-                bcrypt.hash(request.body.password, 10, function (err, hash) {
-                    if (err) {
-                        throw err;
-                    }
-                    bcrypt.compare(
-                        request.body.password,
-                        hash,
-                        (err, result) => {
-                            if (err) {
-                                throw err;
-                            }
-                            if (result) {
-                                response.status(200).send({
-                                    data: results.rows[0],
-                                    error: undefined,
-                                });
-                            }
+                bcrypt
+                    .compare(request.body.password, results.rows[0].password)
+                    .then((res) => {
+                        if (res) {
+                            response.status(200).send({
+                                data: results.rows[0],
+                                error: undefined,
+                            });
+                        } else {
+                            response.status(200).send({
+                                data: undefined,
+                                error: "Wrong password or email",
+                            });
                         }
-                    );
-                });
-            } else if (results.rows.length == 0) {
+                    });
+            } else {
                 response.status(200).send({
                     data: null,
                     error: "Email does not exist",
@@ -92,4 +94,5 @@ app.post("/login", (request, response) => {
         }
     );
 });
+
 app.listen(8080);

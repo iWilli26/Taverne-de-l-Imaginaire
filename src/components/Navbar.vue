@@ -19,10 +19,8 @@
 </template>
 
 <script>
-import router from "@/router";
 import Dropdown from "./Dropdown.vue";
 import logo from "@/assets/logo.svg";
-import { useUserStore } from "../stores/user";
 export default {
     name: "navbar",
     components: {
@@ -35,23 +33,18 @@ export default {
     },
     data() {
         return {
-            user: useUserStore().user,
             profiles: [
                 {
-                    title: "Créer un compte",
+                    title: "Signup",
                     link: "/account/register",
                 },
                 {
-                    title: "Se connecter",
+                    title: "Login",
                     link: "/account/login",
                 },
                 {
                     title: "Mon Profil",
                     link: "/account",
-                },
-                {
-                    title: "Logout",
-                    link: "/account/logout",
                 },
             ],
         };
