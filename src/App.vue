@@ -1,11 +1,13 @@
 <script setup>
 import GameCard from "./components/GameCard.vue";
 import NavBar from "./components/Navbar.vue";
+import { useUserStore } from "./stores/user.js";
 </script>
 
 <template>
     <header>
         <NavBar />
+        <div>{{ useUserStore().isLogged }}</div>
         <router-view />
     </header>
 </template>

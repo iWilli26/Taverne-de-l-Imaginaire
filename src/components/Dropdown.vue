@@ -23,11 +23,14 @@
                     {{ item.title }}
                 </div>
             </div>
+            <div @click="logout" class="sub-menu-item menu-item">Logout</div>
         </div>
     </div>
 </template>
 
 <script>
+import { useUserStore } from "../stores/user";
+
 export default {
     name: "dropdown",
     props: ["title", "items"],
@@ -35,6 +38,12 @@ export default {
         return {
             isOpen: false,
         };
+    },
+    methods: {
+        logout() {
+            useUserStore().logout();
+            // $router.push({ path: "/account/login" });
+        },
     },
 };
 </script>

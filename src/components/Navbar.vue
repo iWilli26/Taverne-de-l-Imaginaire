@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import router from "@/router";
 import Dropdown from "./Dropdown.vue";
 import logo from "@/assets/logo.svg";
 export default {
@@ -36,20 +35,16 @@ export default {
         return {
             profiles: [
                 {
-                    title: "Créer un compte",
+                    title: "Signup",
                     link: "/account/register",
                 },
                 {
-                    title: "Se connecter",
+                    title: "Login",
                     link: "/account/login",
                 },
                 {
                     title: "Mon Profil",
                     link: "/account",
-                },
-                {
-                    title: "Logout",
-                    link: "/account/logout",
                 },
             ],
         };

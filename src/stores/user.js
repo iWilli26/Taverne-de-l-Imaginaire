@@ -1,39 +1,43 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
-
-export const useAuthStore = defineStore({
-    id: "auth",
+export const useUserStore = defineStore({
+    id: "user",
     state: () => ({
         // initialize state from local storage to enable user to stay logged in
         user: JSON.parse(localStorage.getItem("user")),
         returnUrl: null,
+        isLogged: JSON.parse(localStorage.getItem("user")) ? true : false,
+        isAdmin: JSON.parse(localStorage.getItem("user"))?.isAdmin,
     }),
     actions: {
-        async login(username, password) {
+        async login({ email, password }) {
             try {
-                const user = await axios.post(
-                    `localhost:8080/authenticate`,
-                    { username, password }
+                const response = await axios.post(
+                    "http://localhost:8080/login/",
+                    {
+                        email: email,
+                        password: password,
+                    }
                 );
-
-                // update pinia state
-                this.user = user;
-
-                // store user details and jwt in local storage to keep user logged in between page refreshes
-                localStorage.setItem("user", JSON.stringify(user));
-
-                // redirect to previous url or default to home page
-                router.push(this.returnUrl || "/");
-            } catch (error) {
-                const alertStore = useAlertStore();
-                alertStore.error(error);
-            }
+                if (response.data.error === undefined) {
+                    this.user = response.data.data;
+                    this.isLogged = response.data.data ? true : false;
+                    this.isAdmin = response.data.data.is_admin;
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(response.data.data)
+                    );
+                } else {
+                    alert(response.data.error);
+                }
+            } catch (error) {}
         },
         logout() {
             this.user = null;
+            this.isLogged = false;
+            this.isAdmin = false;
             localStorage.removeItem("user");
-            router.push("/account/login");
         },
     },
 });
