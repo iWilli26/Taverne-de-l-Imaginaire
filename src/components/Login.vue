@@ -8,17 +8,27 @@ import { useUserStore } from "../stores/user.js";
         <div class="form">
             <el-form :model="form" label-width="120px">
                 <el-form-item label="Email">
-                    <el-input class="input" v-model="form.email" />
+                    <el-input
+                        @keyup.enter="onSubmit"
+                        class="input"
+                        v-model="form.email"
+                    />
                 </el-form-item>
                 <el-form-item label="Password">
                     <el-input
                         class="input"
                         type="password"
+                        @keyup.enter="onSubmit"
                         v-model="form.password"
                     />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit"
+                    <el-button
+                        type="primary"
+                        @click="
+                            onSubmit();
+                            redirect();
+                        "
                         >Login</el-button
                     >
                 </el-form-item>
@@ -42,17 +52,6 @@ const ValidateEmail = () => {
     return false;
 };
 
-const onSubmit = () => {
-    if (form.email === "" || form.password === "") {
-        alert("Please fill all the fields");
-    } else if (ValidateEmail() === false) {
-        alert("Please enter a valid email address");
-    } else {
-        useUserStore().login({ email: form.email, password: form.password });
-
-       
-    }
-};
 export default {
     name: "Login",
     setup() {},
@@ -60,15 +59,27 @@ export default {
     data() {
         return {};
     },
+    methods: {
+        redirect() {
+            this.$router.push("/");
+        },
+        onSubmit() {
+            if (form.email === "" || form.password === "") {
+                alert("Please fill all the fields");
+            } else if (ValidateEmail() === false) {
+                alert("Please enter a valid email address");
+            } else {
+                useUserStore().login({
+                    email: form.email,
+                    password: form.password,
+                });
+            }
+        },
+    },
     mounted() {
-        //DEBT: déplacer ce code à un endroit plus adapté.
-        // const user = JSON.parse(sessionStorage.getItem("user"));
-        // if (user) {
-        //     useUserStore().login({
-        //         email: user.data.email_address,
-        //         password: user.data.password,
-        //     });
-        // }
+        if (useUserStore().isLogged) {
+            this.$router.push({ path: "/" });
+        }
     },
 };
 </script>

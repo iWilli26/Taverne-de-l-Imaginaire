@@ -30,7 +30,8 @@ export const useUserStore = defineStore({
                         "user",
                         JSON.stringify(response.data.data)
                     );
-                    $router.push({ path: "/" });
+                    
+                    
                 } else {
                     alert(response.data.error);
                 }

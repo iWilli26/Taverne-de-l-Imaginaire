@@ -42,7 +42,7 @@ import { useUserStore } from "../stores/user.js";
             </div>
             <div
                 v-if="useUserStore().isLogged"
-                @click="logout"
+                @click="useUserStore().logout()"
                 class="sub-menu-item menu-item"
             >
                 Logout
@@ -55,13 +55,7 @@ import { useUserStore } from "../stores/user.js";
 import { ref } from "vue";
 export default {
     name: "dropdown",
-    setup() {
-        // const userStore = useUserStore();
-        // return {
-        //     isLogged: userStore.isLogged,
-        //     logout: userStore.logout,
-        // };
-    },
+    setup() {},
     data() {
         return {
             isOpen: false,
