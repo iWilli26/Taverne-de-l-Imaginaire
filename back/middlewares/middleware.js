@@ -9,7 +9,6 @@ function authenticateToken(req, res, next) {
     if (token == null) return res.sendStatus(401);
 
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
-
         if (err) return res.sendStatus(403);
 
         req.user = user;
@@ -18,4 +17,16 @@ function authenticateToken(req, res, next) {
     });
 }
 
-module.exports = authenticateToken;
+const createLog = (req, res, next) => {
+    res.on("finish", function () {
+        console.log(
+            req.method,
+            decodeURI(req.url),
+            res.statusCode,
+            res.statusMessage
+        );
+    });
+    next();
+};
+
+module.exports = { authenticateToken, createLog };
