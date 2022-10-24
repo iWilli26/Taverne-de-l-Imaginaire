@@ -36,7 +36,6 @@ export const useGamesStore = defineStore({
                     "http://localhost:8080/games/"
                 );
                 this.games = response.data;
-                console.log(this.games);
             } catch (error) {
                 console.log(error);
             }

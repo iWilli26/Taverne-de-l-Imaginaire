@@ -30,8 +30,7 @@ export const useUserStore = defineStore({
                         "user",
                         JSON.stringify(response.data.data)
                     );
-                    
-                    
+                    localStorage.setItem("token", response.data.token);
                 } else {
                     alert(response.data.error);
                 }

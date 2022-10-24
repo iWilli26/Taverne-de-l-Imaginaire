@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const { json } = require("express");
+const authenticateToken = require("./middleware");
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     next();
@@ -26,44 +27,6 @@ const pool = new Pool({
     database: "LaTaverne",
     password: "root",
     port: "5432",
-});
-
-app.post("/user/generateToken", (req, res) => {
-    // Validate User Here
-    // Then generate JWT Token
-
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
-    let data = {
-        time: Date(),
-        userId: 12,
-    };
-
-    const token = jwt.sign(data, jwtSecretKey);
-
-    res.send(token);
-});
-
-app.get("/user/validateToken", (req, res) => {
-    // Tokens are generally passed in the header of the request
-    // Due to security reasons.
-
-    let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
-
-    try {
-        const token = req.header(tokenHeaderKey);
-
-        const verified = jwt.verify(token, jwtSecretKey);
-        if (verified) {
-            return res.send("Successfully Verified");
-        } else {
-            // Access Denied
-            return res.status(401).send(error);
-        }
-    } catch (error) {
-        // Access Denied
-        return res.status(401).send(error);
-    }
 });
 
 app.get("/games", (request, response) => {
@@ -121,8 +84,18 @@ app.post("/login", (request, response) => {
                     .compare(request.body.password, results.rows[0].password)
                     .then((res) => {
                         if (res) {
+                            let jwtSecretKey = process.env.JWT_SECRET_KEY;
+                            let data = {
+                                time: Date(),
+                                userId: results.rows[0].id,
+                            };
+                            const token = jwt.sign(data, jwtSecretKey, {
+                                expiresIn: "1800s",
+                            });
+
                             response.status(200).send({
                                 data: results.rows[0],
+                                token: token,
                                 error: undefined,
                             });
                         } else {
@@ -140,4 +113,9 @@ app.post("/login", (request, response) => {
             }
         }
     );
+});
+
+//Mettre le 
+app.get("/test", authenticateToken, (request, response) => {
+    response.status(200).send("You are authenticated");
 });
