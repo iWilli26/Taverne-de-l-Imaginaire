@@ -46,7 +46,7 @@ app.post("/signup", (request, response) => {
             if (error) {
                 throw error
             }
-            if( JSON.stringify(results.rows).length != 0 ){
+            if(results.rows.length != 0 ){
                 response
                     .status(200)
                     .send(`Address already registered`);
