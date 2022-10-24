@@ -13,12 +13,12 @@
         <div @click="$router.push({ path: '/contact' })" class="menu-item">
             Contact
         </div>
-        <Dropdown title="Profile" :items="profiles" />
+
+        <Dropdown title="Profile" />
     </nav>
 </template>
 
 <script>
-import router from "@/router";
 import Dropdown from "./Dropdown.vue";
 import logo from "@/assets/logo.svg";
 export default {
@@ -32,22 +32,7 @@ export default {
         };
     },
     data() {
-        return {
-            profiles: [
-                {
-                    title: "Login",
-                    link: "/",
-                },
-                {
-                    title: "Mon Profil",
-                    link: "/about",
-                },
-                {
-                    title: "Logout",
-                    link: "/contact",
-                },
-            ],
-        };
+        return {};
     },
     methods: {},
 };

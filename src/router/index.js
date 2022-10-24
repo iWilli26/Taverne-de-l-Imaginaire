@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Catalogue from "../views/CatalogueView.vue";
 import TestView from "../views/TestView.vue";
+import RegisterView from "../views/RegisterView.vue";
+import LoginView from "../views/LoginView.vue";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -22,6 +24,16 @@ const router = createRouter({
             path: "/contact",
             name: "contact",
             component: TestView,
+        },
+        {
+            path: "/account/register",
+            name: "register",
+            component: RegisterView,
+        },
+        {
+            path: "/account/login",
+            name: "login",
+            component: LoginView,
         },
     ],
 });

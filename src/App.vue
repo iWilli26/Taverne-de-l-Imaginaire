@@ -1,11 +1,17 @@
 <script setup>
 import GameCard from "./components/GameCard.vue";
 import NavBar from "./components/Navbar.vue";
+import { useUserStore } from "./stores/user.js";
 </script>
 
 <template>
     <header>
         <NavBar />
+        <div>
+            islogged : {{ useUserStore().isLogged }} isADmin:{{
+                useUserStore().isAdmin
+            }}
+        </div>
         <router-view />
     </header>
 </template>
@@ -15,9 +21,7 @@ export default {
     components: {
         NavBar,
     },
-    data() {
-        return {};
-    },
+
     methods: {},
 };
 </script>

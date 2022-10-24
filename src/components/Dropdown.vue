@@ -1,3 +1,7 @@
+<script setup>
+import { useUserStore } from "../stores/user.js";
+</script>
+
 <template>
     <div
         class="menu-item"
@@ -5,7 +9,7 @@
         v-bind:class="{ active: isOpen }"
     >
         <div class="button">
-            {{ title }}
+            Profile
             <svg viewBox="0 0 1030 638" width="10">
                 <path
                     d="M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z"
@@ -15,22 +19,49 @@
         </div>
 
         <div class="sub-menu" v-if="isOpen">
-            <div v-for="(item, i) in items" :key="i" class="menu-item">
-                <div
-                    @click="$router.push({ path: item.link })"
-                    class="sub-menu-item"
-                >
-                    {{ item.title }}
-                </div>
+            <div
+                v-if="!useUserStore().isLogged"
+                @click="$router.push({ path: '/account/register' })"
+                class="sub-menu-item menu-item"
+            >
+                Register
+            </div>
+            <div
+                v-if="!useUserStore().isLogged"
+                @click="$router.push({ path: '/account/login' })"
+                class="sub-menu-item menu-item"
+            >
+                Login
+            </div>
+            <div
+                v-if="useUserStore().isLogged"
+                @click="$router.push({ path: '/account/' })"
+                class="sub-menu-item menu-item"
+            >
+                Mon Profil
+            </div>
+            <div
+                v-if="useUserStore().isLogged"
+                @click="logout"
+                class="sub-menu-item menu-item"
+            >
+                Logout
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
     name: "dropdown",
-    props: ["title", "items"],
+    setup() {
+        // const userStore = useUserStore();
+        // return {
+        //     isLogged: userStore.isLogged,
+        //     logout: userStore.logout,
+        // };
+    },
     data() {
         return {
             isOpen: false,
