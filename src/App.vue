@@ -7,7 +7,11 @@ import { useUserStore } from "./stores/user.js";
 <template>
     <header>
         <NavBar />
-        <div>{{ useUserStore().isLogged }}</div>
+        <div>
+            islogged : {{ useUserStore().isLogged }} isADmin:{{
+                useUserStore().isAdmin
+            }}
+        </div>
         <router-view />
     </header>
 </template>

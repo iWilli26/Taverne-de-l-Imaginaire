@@ -1,16 +1,11 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
-export const useUserStore = defineStore({
-    id: "user",
+export const useGamesStore = defineStore({
+    id: "games",
     state: () => ({
         // initialize state from local storage to enable user to stay logged in
-        user: JSON.parse(localStorage.getItem("user")),
-        returnUrl: null,
-        isLogged: JSON.parse(localStorage.getItem("user")) ? true : false,
-        isAdmin: JSON.parse(localStorage.getItem("user"))
-            ? JSON.parse(localStorage.getItem("user")).is_admin
-            : false,
+        games: [],
     }),
     actions: {
         async login({ email, password }) {
@@ -30,17 +25,21 @@ export const useUserStore = defineStore({
                         "user",
                         JSON.stringify(response.data.data)
                     );
-                    $router.push({ path: "/" });
                 } else {
                     alert(response.data.error);
                 }
             } catch (error) {}
         },
-        logout() {
-            this.user = null;
-            this.isLogged = false;
-            this.isAdmin = false;
-            localStorage.removeItem("user");
+        async fetchGames() {
+            try {
+                const response = await axios.get(
+                    "http://localhost:8080/games/"
+                );
+                this.games = response.data;
+                console.log(this.games);
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
 });

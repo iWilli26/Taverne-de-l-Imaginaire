@@ -14,7 +14,7 @@
             Contact
         </div>
 
-        <Dropdown title="Profile" :items="profiles" />
+        <Dropdown title="Profile" />
     </nav>
 </template>
 
@@ -32,22 +32,7 @@ export default {
         };
     },
     data() {
-        return {
-            profiles: [
-                {
-                    title: "Signup",
-                    link: "/account/register",
-                },
-                {
-                    title: "Login",
-                    link: "/account/login",
-                },
-                {
-                    title: "Mon Profil",
-                    link: "/account",
-                },
-            ],
-        };
+        return {};
     },
     methods: {},
 };

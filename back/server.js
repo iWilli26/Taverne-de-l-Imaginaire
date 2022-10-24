@@ -1,22 +1,69 @@
-let express = require("express");
+const express = require("express");
 const { Pool } = require("pg");
-let app = express();
-let pg = require("pg").Pool;
-let cors = require("cors");
-let bcrypt = require("bcrypt");
+const app = express();
+const pg = require("pg").Pool;
+const cors = require("cors");
+const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 const { json } = require("express");
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     next();
 });
+dotenv.config();
 app.use(cors());
 app.use(express.json());
+
+let PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server is up and running on ${PORT} ...`);
+});
+
 const pool = new Pool({
     user: "application",
     host: "localhost",
     database: "LaTaverne",
     password: "root",
     port: "5432",
+});
+
+app.post("/user/generateToken", (req, res) => {
+    // Validate User Here
+    // Then generate JWT Token
+
+    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+    let data = {
+        time: Date(),
+        userId: 12,
+    };
+
+    const token = jwt.sign(data, jwtSecretKey);
+
+    res.send(token);
+});
+
+app.get("/user/validateToken", (req, res) => {
+    // Tokens are generally passed in the header of the request
+    // Due to security reasons.
+
+    let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
+    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+    try {
+        const token = req.header(tokenHeaderKey);
+
+        const verified = jwt.verify(token, jwtSecretKey);
+        if (verified) {
+            return res.send("Successfully Verified");
+        } else {
+            // Access Denied
+            return res.status(401).send(error);
+        }
+    } catch (error) {
+        // Access Denied
+        return res.status(401).send(error);
+    }
 });
 
 app.get("/games", (request, response) => {
@@ -94,5 +141,3 @@ app.post("/login", (request, response) => {
         }
     );
 });
-
-app.listen(8080);

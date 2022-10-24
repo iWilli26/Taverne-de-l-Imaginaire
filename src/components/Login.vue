@@ -50,7 +50,7 @@ const onSubmit = () => {
     } else {
         useUserStore().login({ email: form.email, password: form.password });
 
-        // $router.push({ path: "/" });
+       
     }
 };
 export default {

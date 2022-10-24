@@ -1,14 +1,16 @@
 <script setup>
 import GameCard from "../components/GameCard.vue";
 import axios from "axios";
+import Catalogue from "../components/Catalogue.vue";
 </script>
 
 <template>
     <main>
         <div class="content">
-            <GameCard v-bind:game="game1" :avis="avis1" />
-            <GameCard :game="game2" :avis="avis2" />
-            <button @click="fetchGames"></button>
+            <Catalogue />
+            <!-- <GameCard v-bind:game="game1" :avis="avis1" />
+            <GameCard :game="game2" :avis="avis2" /> -->
+            <!-- <button @click="fetchGames"></button> -->
         </div>
     </main>
 </template>
