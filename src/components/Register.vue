@@ -13,6 +13,9 @@ import axios from "axios";
                 <el-form-item label="First Name">
                     <el-input class="input" v-model="form.fname" />
                 </el-form-item>
+                <el-form-item label="Username">
+                    <el-input class="input" v-model="form.username" />
+                </el-form-item>
                 <el-form-item label="Email">
                     <el-input class="input" v-model="form.email" />
                 </el-form-item>
@@ -40,6 +43,7 @@ import { reactive } from "vue";
 const form = reactive({
     name: "",
     fname: "",
+    username: "",
     email: "",
     password: "",
 });
@@ -54,7 +58,8 @@ const onSubmit = () => {
         form.name === "" ||
         form.fname === "" ||
         form.email === "" ||
-        form.password === ""
+        form.password === "" ||
+        form.username === ""
     ) {
         alert("Please fill all the fields");
     } else if (ValidateEmail() === false) {
@@ -64,6 +69,7 @@ const onSubmit = () => {
             .post("http://localhost:8080/signup/", {
                 firstName: form.fname,
                 lastName: form.name,
+                username: form.username,
                 email: form.email,
                 password: form.password,
             })
@@ -78,7 +84,7 @@ const onSubmit = () => {
     }
 };
 export default {
-    name: "Login",
+    name: "Register",
     setup() {},
     components: {},
     data() {
