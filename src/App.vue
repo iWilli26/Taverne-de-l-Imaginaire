@@ -2,6 +2,7 @@
 import GameCard from "./components/GameCard.vue";
 import NavBar from "./components/Navbar.vue";
 import { useUserStore } from "./stores/user.js";
+import { axiosPrivate } from "./auth";
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import { useUserStore } from "./stores/user.js";
             islogged : {{ useUserStore().isLogged }} isADmin:{{
                 useUserStore().isAdmin
             }}
+            <button @click="test">test</button>
         </div>
         <router-view />
     </header>
@@ -22,7 +24,14 @@ export default {
         NavBar,
     },
 
-    methods: {},
+    methods: {
+        test() {
+            console.log("token", localStorage.getItem("token"));
+            axiosPrivate.get("/test").then((res) => {
+                console.log(res.data);
+            });
+        },
+    },
 };
 </script>
 <style scoped>

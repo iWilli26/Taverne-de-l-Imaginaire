@@ -6,6 +6,7 @@ import "element-plus/dist/index.css";
 import "./assets/main.css";
 import { createPinia, setActivePinia } from "pinia";
 const app = createApp(App);
+
 app.use(router);
 app.use(ElementPlus, { size: "small", zIndex: 3000 });
 const pinia = createPinia();

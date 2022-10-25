@@ -56,21 +56,7 @@ export default {
             },
         };
     },
-    methods: {
-        fetchGames() {
-            axios
-                .get("http://localhost:8080/games/")
-                .then(function (response) {
-                    // handle success
-                    console.log(response.data);
-                    // state.games = response.data;
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-        },
-    },
+    methods: {},
 };
 </script>
 
