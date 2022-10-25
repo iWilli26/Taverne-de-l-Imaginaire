@@ -8,9 +8,6 @@ import Catalogue from "../components/Catalogue.vue";
     <main>
         <div class="content">
             <Catalogue />
-            <!-- <GameCard v-bind:game="game1" :avis="avis1" />
-            <GameCard :game="game2" :avis="avis2" /> -->
-            <!-- <button @click="fetchGames"></button> -->
         </div>
     </main>
 </template>

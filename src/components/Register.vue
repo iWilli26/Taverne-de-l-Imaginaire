@@ -1,6 +1,7 @@
 <script setup>
 import GameCard from "../components/GameCard.vue";
 import axios from "axios";
+import { useUserStore } from "../stores/user";
 </script>
 
 <template>
@@ -74,12 +75,18 @@ const onSubmit = () => {
                 password: form.password,
             })
             .then(function (response) {
-                if (response.status === 201) {
+                if (response.data.error !== undefined) {
+                    alert(response.data.error);
+                } else {
                     alert("User created");
+                    useUserStore().login({
+                        email: form.email,
+                        password: form.password,
+                    });
                 }
             })
             .catch(function (error) {
-                console.log(error.response);
+                console.log(error);
             });
     }
 };
@@ -91,6 +98,11 @@ export default {
         return {};
     },
     methods: {},
+    mounted() {
+        if (useUserStore().isLogged) {
+            this.$router.push({ path: "/" });
+        }
+    },
 };
 </script>
 

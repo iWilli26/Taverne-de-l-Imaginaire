@@ -1,7 +1,7 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
-import { signup } from "../../back/controllers/auth";
+
 export const useUserStore = defineStore({
     id: "user",
     state: () => ({
