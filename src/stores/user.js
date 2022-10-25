@@ -1,7 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
-import { signup } from "../../back/controllers/auth";
 export const useUserStore = defineStore({
     id: "user",
     state: () => ({
@@ -9,9 +8,10 @@ export const useUserStore = defineStore({
         user: JSON.parse(localStorage.getItem("user")),
         returnUrl: null,
         isLogged: JSON.parse(localStorage.getItem("user")) ? true : false,
-        isAdmin: JSON.parse(localStorage.getItem("user"))
-            ? JSON.parse(localStorage.getItem("user")).is_admin
-            : false,
+        isAdmin: true 
+        // JSON.parse(localStorage.getItem("user"))
+        //     ? JSON.parse(localStorage.getItem("user")).is_admin
+        //     : false,
     }),
     actions: {
         async login({ email, password }) {
