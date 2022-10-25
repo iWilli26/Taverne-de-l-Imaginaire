@@ -1,11 +1,19 @@
 <script setup>
 import GameCard from "./components/GameCard.vue";
 import NavBar from "./components/Navbar.vue";
+import { useUserStore } from "./stores/user.js";
+import { axiosPrivate } from "./auth";
 </script>
 
 <template>
     <header>
         <NavBar />
+        <div>
+            islogged : {{ useUserStore().isLogged }} isADmin:{{
+                useUserStore().isAdmin
+            }}
+            <button @click="test">test</button>
+        </div>
         <router-view />
     </header>
 </template>
@@ -15,10 +23,15 @@ export default {
     components: {
         NavBar,
     },
-    data() {
-        return {};
+
+    methods: {
+        test() {
+            console.log("token", localStorage.getItem("token"));
+            axiosPrivate.get("/test").then((res) => {
+                console.log(res.data);
+            });
+        },
     },
-    methods: {},
 };
 </script>
 <style scoped>

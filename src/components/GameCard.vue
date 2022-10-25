@@ -1,9 +1,11 @@
 <template>
+    <!-- {{ game }} -->
     <div class="gameCard">
         <img v-bind:src="game.image" />
         <div class="description">
             <div class="test">
                 <div class="title">
+                    <!-- {{ game }} -->
                     <h2>
                         {{ game.name }}
                     </h2>
@@ -15,7 +17,7 @@
                 </div>
             </div>
             <div class="info">
-                <p>{{ game.players }} players {{ game.time }}</p>
+                <p>{{ game.players }} {{ game.time }}</p>
             </div>
         </div>
     </div>
