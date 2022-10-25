@@ -47,6 +47,7 @@ const signup = (request, response) => {
     let firstName = request.body.firstName;
     let lastName = request.body.lastName;
     let email = request.body.email;
+    let username = request.body.username;
     let password = request.body.password;
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(password, salt, function (err, hash) {
@@ -56,17 +57,24 @@ const signup = (request, response) => {
                     if (results.rows.length >= 1) {
                         response.status(400).json("Email already exists");
                     } else {
+                        //TODO: Add username in the Query
                         pool.query(
-                            `INSERT INTO "LaTaverneDeLimaginaire".user (last_name, first_name, email_address, password) VALUES ('${lastName}', '${firstName}', '${email}', '${hash}')`,
+                            `INSERT INTO "LaTaverneDeLimaginaire".user (last_name, first_name,username, email_address, password) VALUES ('${lastName}', '${firstName}','${username}' ,'${email}', '${hash}')`,
                             (error, results) => {
                                 if (error) {
                                     throw error;
                                 }
-                                response
-                                    .status(201)
-                                    .send(
-                                        `User added with ID: ${results.insertId}`
-                                    );
+                                response.status(201).send({
+                                    data: {
+                                        lastName: lastName,
+                                        firstName: firstName,
+                                        username: username,
+                                        email: email,
+                                        password: hash,
+                                        //TRAVAIL ICI A REPRENDRE
+                                    },
+                                    error: undefined,
+                                });
                             }
                         );
                     }
