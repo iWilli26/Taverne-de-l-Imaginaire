@@ -1,5 +1,4 @@
 <template>
-    <el-container class="container">
         <el-aside>
             <el-menu
                 active-text-color="#B11100"
@@ -16,13 +15,12 @@
                     <span>GAMES</span>
                 </el-menu-item>
 
-                <el-menu-item @click="$router.push({ path: '/admin', query: { test: 'copy' }})" index="4">
+                <el-menu-item @click="$router.push({ path: '/admin', query: { test: 'c' }})" index="4">
                     <span>COPY</span>
                 </el-menu-item>
 
             </el-menu>
         </el-aside>
-    </el-container>
     
 </template>
 
@@ -43,16 +41,11 @@ export default {
 </script>
 
 <style scoped>
-.container{
-    height: 100vh;
-    width:100%;
-    background-color: none;
-}
-.container .el-aside{
+.el-aside{
     height: 100%;
     width:15%;
 }
-.container .el-menu{
+.el-menu{
     height: 100%;
     background-color: none;
     border : 0px;
