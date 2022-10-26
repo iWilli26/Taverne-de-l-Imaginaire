@@ -6,10 +6,8 @@ import { axiosPrivate } from "./auth";
 </script>
 
 <template>
-    <header>
-        <NavBar />
-        <router-view />
-    </header>
+    <NavBar />
+    <router-view />
 </template>
 <script>
 export default {

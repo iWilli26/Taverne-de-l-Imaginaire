@@ -8,7 +8,7 @@ import { createPinia, setActivePinia } from "pinia";
 const app = createApp(App);
 
 app.use(router);
-app.use(ElementPlus, { size: "small", zIndex: 3000 });
+app.use(ElementPlus);
 const pinia = createPinia();
 setActivePinia(pinia);
 app.use(pinia);
