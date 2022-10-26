@@ -1,19 +1,11 @@
 <template>
     <div>
         <div class="content">
-            <div class="title">
-                <!-- {{ state.games }} -->
-            </div>
             <div class="games">
                 <GameCard
-                    v-for="game in state.games"
+                    v-for="game in state.games.data"
                     :key="game.game_id"
-                    :game="{
-                        name: game.name,
-                        description: game.description,
-                        time: game.average_time,
-                        players: game.number_of_player,
-                    }"
+                    :game="game"
                 />
             </div>
         </div>
