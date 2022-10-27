@@ -57,10 +57,12 @@ export default {
 
 <style scoped>
 .overwrite-table {
-    --el-bg-color: grey;
-    --el-text-color-regular: red;
-    --el-text-color-secondary: purple;
-    --el-table-tr-bg-color: green;
-    --el-table-row-hover-bg-color: yellow;
+    --el-table-header-bg-color: #626567;
+    --el-text-color-regular: #f8f8f8;
+    --el-text-color-secondary: #f8f8f8;
+    --el-table-tr-bg-color: #909497;
+    --el-table-row-hover-bg-color: #797D7F;
+    --el-table-current-row-bg-color: #B11100;
+    --el-table-border-color: transparent;
 }
 </style>
