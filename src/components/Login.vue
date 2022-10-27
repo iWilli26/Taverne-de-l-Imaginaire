@@ -1,5 +1,4 @@
 <script setup>
-import axios from "axios";
 import { useUserStore } from "../stores/user.js";
 </script>
 
@@ -23,12 +22,7 @@ import { useUserStore } from "../stores/user.js";
                     />
                 </el-form-item>
                 <el-form-item>
-                    <el-button
-                        type="primary"
-                        @click="
-                            onSubmit();
-                            redirect();
-                        "
+                    <el-button type="primary" @click="onSubmit()"
                         >Login</el-button
                     >
                 </el-form-item>

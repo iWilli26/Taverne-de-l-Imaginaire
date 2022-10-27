@@ -1,6 +1,7 @@
 <script setup>
 import GameCard from "../components/GameCard.vue";
 import axios from "axios";
+import { useUserStore } from "../stores/user";
 </script>
 
 <template>
@@ -12,6 +13,9 @@ import axios from "axios";
                 </el-form-item>
                 <el-form-item label="First Name">
                     <el-input class="input" v-model="form.fname" />
+                </el-form-item>
+                <el-form-item label="Username">
+                    <el-input class="input" v-model="form.username" />
                 </el-form-item>
                 <el-form-item label="Email">
                     <el-input class="input" v-model="form.email" />
@@ -40,6 +44,7 @@ import { reactive } from "vue";
 const form = reactive({
     name: "",
     fname: "",
+    username: "",
     email: "",
     password: "",
 });
@@ -54,7 +59,8 @@ const onSubmit = () => {
         form.name === "" ||
         form.fname === "" ||
         form.email === "" ||
-        form.password === ""
+        form.password === "" ||
+        form.username === ""
     ) {
         alert("Please fill all the fields");
     } else if (ValidateEmail() === false) {
@@ -64,27 +70,39 @@ const onSubmit = () => {
             .post("http://localhost:8080/signup/", {
                 firstName: form.fname,
                 lastName: form.name,
+                username: form.username,
                 email: form.email,
                 password: form.password,
             })
             .then(function (response) {
-                if (response.status === 201) {
+                if (response.data.error !== undefined) {
+                    alert(response.data.error);
+                } else {
                     alert("User created");
+                    useUserStore().login({
+                        email: form.email,
+                        password: form.password,
+                    });
                 }
             })
             .catch(function (error) {
-                console.log(error.response);
+                console.log(error);
             });
     }
 };
 export default {
-    name: "Login",
+    name: "Register",
     setup() {},
     components: {},
     data() {
         return {};
     },
     methods: {},
+    mounted() {
+        if (useUserStore().isLogged) {
+            this.$router.push({ path: "/" });
+        }
+    },
 };
 </script>
 
