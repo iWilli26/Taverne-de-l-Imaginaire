@@ -26,7 +26,6 @@ export default {
 
     methods: {
         test() {
-            console.log("token", localStorage.getItem("token"));
             axiosPrivate.get("/test").then((res) => {
                 console.log(res.data);
             });
