@@ -100,3 +100,4 @@ const updateGame = (request, response) => {
 
 
 module.exports = { getAll, createGame, deleteGame, updateGame };
+module.exports = { getAll, getGame };
