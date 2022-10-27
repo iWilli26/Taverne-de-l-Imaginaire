@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const pool = require("../pool");
-
+require("dotenv").config({ path: __dirname + "/../.env" });
 const login = (request, response) => {
     let email = request.body.email;
     pool.query(
@@ -55,26 +55,39 @@ const signup = (request, response) => {
                 `SELECT email_address FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
                 (error, results) => {
                     if (results.rows.length >= 1) {
-                        response.status(400).json("Email already exists");
+                        response.status(201).send({
+                            data: undefined,
+                            error: "Email already exists",
+                        });
                     } else {
-                        //TODO: Add username in the Query
                         pool.query(
-                            `INSERT INTO "LaTaverneDeLimaginaire".user (last_name, first_name,username, email_address, password) VALUES ('${lastName}', '${firstName}','${username}' ,'${email}', '${hash}')`,
+                            `SELECT username FROM "LaTaverneDeLimaginaire".user WHERE username ='${username}'`,
                             (error, results) => {
-                                if (error) {
-                                    throw error;
+                                if (results.rows.length >= 1) {
+                                    response.status(201).send({
+                                        data: undefined,
+                                        error: "Username already exists",
+                                    });
+                                } else {
+                                    pool.query(
+                                        `INSERT INTO "LaTaverneDeLimaginaire".user (last_name, first_name,username, email_address, password) VALUES ('${lastName}', '${firstName}','${username}' ,'${email}', '${hash}')`,
+                                        (error, results) => {
+                                            if (error) {
+                                                throw error;
+                                            }
+                                            response.status(201).send({
+                                                data: {
+                                                    lastName: lastName,
+                                                    firstName: firstName,
+                                                    username: username,
+                                                    email: email,
+                                                    password: hash,
+                                                },
+                                                error: undefined,
+                                            });
+                                        }
+                                    );
                                 }
-                                response.status(201).send({
-                                    data: {
-                                        lastName: lastName,
-                                        firstName: firstName,
-                                        username: username,
-                                        email: email,
-                                        password: hash,
-                                        //TRAVAIL ICI A REPRENDRE
-                                    },
-                                    error: undefined,
-                                });
                             }
                         );
                     }

@@ -1,5 +1,4 @@
 <script setup>
-import GameCard from "./components/GameCard.vue";
 import NavBar from "./components/Navbar.vue";
 import { useUserStore } from "./stores/user.js";
 import { axiosPrivate } from "./auth";
@@ -9,6 +8,7 @@ import { axiosPrivate } from "./auth";
     <NavBar />
     <router-view />
 </template>
+
 <script>
 export default {
     name: "App",
@@ -18,7 +18,6 @@ export default {
 
     methods: {
         test() {
-            console.log("token", localStorage.getItem("token"));
             axiosPrivate.get("/test").then((res) => {
                 console.log(res.data);
             });
@@ -26,6 +25,7 @@ export default {
     },
 };
 </script>
+
 <style scoped>
 html,
 body {

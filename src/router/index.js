@@ -23,6 +23,14 @@ const router = createRouter({
             component: Catalogue,
         },
         {
+            path: "/game/:id",
+            name: "gameDetails",
+            // route level code-splitting
+            // this generates a separate chunk (About.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            // component: GameDetailsView,
+        },
+        {
             path: "/contact",
             name: "contact",
             component: TestView,
