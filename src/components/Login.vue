@@ -34,7 +34,6 @@ import { useUserStore } from "../stores/user.js";
 <script>
 import { reactive } from "vue";
 
-// do not use same name with ref
 const form = reactive({
     email: "",
     password: "",
