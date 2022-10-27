@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from "vue";
+import { reactive } from "vue";
 import { useRoute } from "vue-router";
 import { axiosPublic } from "../auth";
 import { useGamesStore } from "../stores/games";
@@ -21,10 +21,29 @@ import { useGamesStore } from "../stores/games";
             <p>{{ game.number_of_player }} <br />{{ game.average_time }}</p>
         </div>
     </div>
-    
+    <div class="comment">
+        <h2>Commentaires et avis</h2>
+        <el-form :model="form">
+            <el-form-item>
+                <el-input
+                    @keyup.enter="onSubmit"
+                    class="input"
+                    v-model="form.comment"
+                    type="textarea"
+                />
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit()">Login</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
 </template>
 
 <script>
+const form = reactive({
+    email: "",
+    password: "",
+});
 export default {
     data() {
         return {
@@ -45,6 +64,9 @@ export default {
 };
 </script>
 <style scoped>
+.el-form {
+    width: 80vw;
+}
 .tags {
     display: flex;
     flex-direction: row;
