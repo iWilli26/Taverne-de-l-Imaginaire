@@ -5,6 +5,8 @@ const cors = require("cors");
 const { authenticateToken, createLog } = require("./middlewares/middleware");
 
 const gamesRouter = require("./routes/games");
+const usersRouter = require("./routes/users");
+const copyRouter = require("./routes/copy");
 const authRouter = require("./routes/auth");
 const tagRouter = require("./routes/tag");
 
@@ -16,11 +18,14 @@ app.use((req, res, next) => {
 require("dotenv").config({ path: __dirname + "/.env" });
 
 app.use(cors());
+
 app.use(express.json());
 app.use(createLog);
 app.use(authRouter);
 app.use("/games", gamesRouter);
 app.use("/tag", tagRouter);
+app.use("/users", usersRouter);
+app.use("/copy", copyRouter);
 
 //Mettre le authenticateToken dans chaque truc ou faut être connecté
 app.get("/test", authenticateToken, (request, response) => {

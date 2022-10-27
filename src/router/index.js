@@ -5,6 +5,8 @@ import TestView from "../views/TestView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 import GameDetailsView from "../views/GameDetailsView.vue";
+import AdminView from "../views/AdminView.vue";
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -44,6 +46,11 @@ const router = createRouter({
             path: "/account/login",
             name: "login",
             component: LoginView,
+        },
+        {
+            path: "/admin",
+            name: "admin",
+            component: AdminView,
         },
     ],
 });

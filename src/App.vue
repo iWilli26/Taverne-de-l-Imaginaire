@@ -5,16 +5,8 @@ import { axiosPrivate } from "./auth";
 </script>
 
 <template>
-    <header>
-        <NavBar />
-        <div>
-            islogged : {{ useUserStore().isLogged }} isADmin:{{
-                useUserStore().isAdmin
-            }}
-            <button @click="test">test</button>
-        </div>
-        <router-view />
-    </header>
+    <NavBar />
+    <router-view />
 </template>
 
 <script>
