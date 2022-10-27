@@ -13,6 +13,7 @@ export const useGamesStore = defineStore({
                 const response = await axios.get(
                     "http://localhost:8080/games/"
                 );
+
                 this.games = response.data;
             } catch (error) {
                 console.log(error);

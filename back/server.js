@@ -6,6 +6,7 @@ const { authenticateToken, createLog } = require("./middlewares/middleware");
 
 const gamesRouter = require("./routes/games");
 const authRouter = require("./routes/auth");
+const tagRouter = require("./routes/tag");
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(createLog);
 app.use(authRouter);
 app.use("/games", gamesRouter);
+app.use("/tag", tagRouter);
 
 //Mettre le authenticateToken dans chaque truc ou faut être connecté
 app.get("/test", authenticateToken, (request, response) => {

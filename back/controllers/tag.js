@@ -2,7 +2,7 @@ const pool = require("../pool");
 
 const getAll = (request, response) => {
     pool.query(
-        'SELECT * FROM "LaTaverneDeLimaginaire".game',
+        'SELECT * FROM "LaTaverneDeLimaginaire".tag',
         (error, results) => {
             if (error) {
                 response.status(500).send({ error: error, data: undefined });
@@ -14,9 +14,12 @@ const getAll = (request, response) => {
         }
     );
 };
-const getGame = (request, response) => {
+const getTag = (request, response) => {
     pool.query(
-        `SELECT * FROM "LaTaverneDeLimaginaire".game WHERE game_id = ${request.params.id}`,
+        `select * from "LaTaverneDeLimaginaire".tag 
+        INNER JOIN "LaTaverneDeLimaginaire".game_tag 
+        ON "LaTaverneDeLimaginaire".game_tag.tag_id="LaTaverneDeLimaginaire".tag.tag_id
+        WHERE game_id=${request.params.id}`,
         (error, results) => {
             if (error) {
                 response.status(500).send({ error: error, data: undefined });
@@ -28,4 +31,4 @@ const getGame = (request, response) => {
         }
     );
 };
-module.exports = { getAll, getGame };
+module.exports = { getAll, getTag };

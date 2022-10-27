@@ -18,7 +18,7 @@ const login = (request, response) => {
                                 userId: results.rows[0].id,
                             };
                             const token = jwt.sign(data, jwtSecretKey, {
-                                expiresIn: "1800s",
+                                expiresIn: "3h",
                             });
 
                             response.status(200).send({
