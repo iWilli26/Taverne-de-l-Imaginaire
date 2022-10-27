@@ -3,26 +3,35 @@
 <el-main>
     <el-row>
         <el-form :model="formGames" :inline="true" class="overwrite-label">
-                <el-form-item label="Game Name" >
+                <el-form-item label="Game Name" style="--el-text-color-regular: #f8f8f8">
                         <el-input v-model="formGames.name" style="--el-input-text-color: black"/>
                 </el-form-item>
-                <el-form-item label="Author Name" style="--el-input-text-color: black">
-                        <el-input v-model="formGames.author" />
+                <el-form-item label="Author Name" style="--el-text-color-regular: #f8f8f8" >
+                        <el-input v-model="formGames.author" style="--el-input-text-color: black"/>
                 </el-form-item>
-                <el-form-item label="Editor Name" style="--el-input-text-color: black">
-                        <el-input v-model="formGames.editor" />
+                <el-form-item label="Editor Name"  style="--el-text-color-regular: #f8f8f8">
+                        <el-input v-model="formGames.editor" style="--el-input-text-color: black"/>
                 </el-form-item>
-                <el-form-item label="Average Time" style="--el-input-text-color: black">
-                    <el-input v-model="formGames.average_time"/>
+                <el-form-item label="Average Time" style="--el-text-color-regular: #f8f8f8">
+                    <el-input v-model="formGames.average_time" style="--el-input-text-color: black"/>
                 </el-form-item>
-                <el-form-item label="Number of Player" style="--el-input-text-color: black">
-                    <el-input v-model="formGames.number_of_player"/>
+                <el-form-item label="Number of Player"  style="--el-text-color-regular: #f8f8f8">
+                    <el-input v-model="formGames.number_of_player" style="--el-input-text-color: black"/>
                 </el-form-item>
                 <el-col :span="24">
-                    <el-form-item label="Description" class="description" >
+                    <el-form-item label="Description" class="description" style="--el-text-color-regular: #f8f8f8" >
                         <el-input v-model="formGames.descritpion" type="textarea" style="--el-input-text-color: black"/>    
                     </el-form-item>
                 </el-col>
+                <el-row>
+                    <el-col :span="24">
+                        <el-form-item class="item-center">
+                            <el-button @click="createGame" type="primary" class="item-center">
+                                ADD GAME
+                            </el-button>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
         </el-form>
     </el-row>
     
@@ -60,6 +69,7 @@
 <script>
 import { useGamesStore } from "../stores/games.js";
 import { computed, ref, reactive } from "vue";
+import axios from "axios";
 export default {
     name: "GamesTable",
     components: {},
@@ -85,7 +95,36 @@ export default {
             description:'',
         })
 
-        return { state, search, filterTableData, formGames};
+        const createGame = () => {
+            axios
+                .post(
+                    "http://localhost:8080/games/create",
+                    {
+                        name: formGames.name,
+                        editor: formGames.editor,
+                        author: formGames.author,
+                        average_time: formGames.average_time,
+                        number_of_player: formGames.number_of_player,
+                        description: formGames.description
+                    }
+                )
+                .then((response)=> console.log(response))
+                .catch((error) => console.log(error));
+        }
+
+        const editGame= () =>{
+
+        }
+
+        const deleteGame= () =>{
+
+        }
+
+        const updateGame = () =>{
+
+        }
+
+        return { state, search, filterTableData, formGames, createGame};
     },
     data() {
         return {};
@@ -107,9 +146,7 @@ export default {
 .el-form .description{
     width:100%;
 }
-.overwrite-label{
-    --el-text-color-regular: #f8f8f8; 
-    
+.item-center{
+    width: 100%;
 }
-
 </style>
