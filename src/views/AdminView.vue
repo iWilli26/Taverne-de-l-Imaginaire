@@ -7,7 +7,7 @@ import GamesTable from "../components/GamesTable.vue"
     <main>
         <el-container class="container">
             <NavbarAdmin />
-            <GamesTable />
+            <GamesTable v-if="$route.query.type === 'games'"/>
         </el-container>
     </main>
 

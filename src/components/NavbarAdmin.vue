@@ -15,7 +15,7 @@
                     <span>GAMES</span>
                 </el-menu-item>
 
-                <el-menu-item @click="$router.push({ path: '/admin', query: { test: 'c' }})" index="4">
+                <el-menu-item @click="$router.push({ path: '/admin', query: { type: 'copy' }})" index="4">
                     <span>COPY</span>
                 </el-menu-item>
 

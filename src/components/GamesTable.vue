@@ -5,7 +5,6 @@
         style="width: 100%"
         highlight-current-row
         class="overwrite-table"
-        :row-class-name="tableRowClassName"
     >
         <el-table-column prop="game_id" label="Id" />
         <el-table-column prop="name" label="Name" />
