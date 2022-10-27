@@ -6,7 +6,7 @@
                     v-for="game in state.games.data"
                     :key="game.game_id"
                     :game="game"
-                    @click="$router.push(`/game/${game.game_id}`)"
+                    @click="$router.push(`/game?id=${game.game_id}`)"
                 />
             </div>
         </div>
