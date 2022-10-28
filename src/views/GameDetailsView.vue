@@ -6,21 +6,34 @@ import { useUserStore } from "../stores/user";
 </script>
 <template>
     <div class="content">
-        <h1>{{ game.name }}</h1>
-        <img v-bind:src="src" />
+        <div class="imgCreator">
+            <img v-bind:src="src" />
+            <div style="padding-left: 1%">
+                <h1>{{ game.name }}</h1>
+                <p>
+                    Created by {{ game.author }} <br />
+                    Edited by {{ game.editor }}
+                </p>
+            </div>
+        </div>
         <div class="details">
             <div class="tags">
-                Tags :&nbsp;
+                <p>Tags :&nbsp;</p>
                 <div class="tag" v-for="tag in tags" :key="tag.id">
-                    {{ tag.name }}
+                    <p>
+                        {{ tag.name }}
+                    </p>
                 </div>
             </div>
             <div class="description">
-                Description :
-                {{ game.description }}
+                <p>
+                    Description :
+                    {{ game.description }}
+                </p>
             </div>
             <div class="info">
-                <p>{{ game.number_of_player }} <br />{{ game.average_time }}</p>
+                <p>{{ game.number_of_player }}</p>
+                <p>{{ game.average_time }}</p>
             </div>
         </div>
         <div class="commentsContainer">
@@ -37,7 +50,7 @@ import { useUserStore } from "../stores/user";
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit()"
-                            >Login</el-button
+                            >Send</el-button
                         >
                     </el-form-item>
                 </el-form>
@@ -48,13 +61,13 @@ import { useUserStore } from "../stores/user";
                     v-for="comment in comments"
                     :key="comment.id"
                 >
-                    <div class="user">
-                        <div class="name">
+                    <div class="userText">
+                        <div class="user">
                             {{ comment.username }}
                         </div>
-                    </div>
-                    <div class="text">
-                        {{ comment.text }}
+                        <div class="text">
+                            {{ comment.text }}
+                        </div>
                     </div>
                     <div>
                         <div class="rate">
@@ -102,7 +115,6 @@ export default {
             this.tags = res.data.data;
         });
         axiosPublic.get(`/comment/${id}`).then((res) => {
-            console.log(res.data.data);
             this.comments = res.data.data;
         });
     },
@@ -131,22 +143,39 @@ export default {
 };
 </script>
 <style scoped>
+h1 {
+    font-size: 2rem;
+}
+p {
+    font-size: 1.2rem;
+}
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.imgCreator {
+    display: flex;
+    flex-direction: row;
+}
 img {
     width: 20vw;
     height: auto;
-    margin: auto;
+    margin: 0;
 }
 .el-form {
-    width: 80vw;
+    width: 94vw;
 }
 .content {
     display: flex;
     flex-direction: column;
-    padding: 2%;
+    margin: 2%;
+    margin-bottom: 0;
 }
 .tags {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .tag {
     margin-right: 1rem;
@@ -156,8 +185,15 @@ img {
     flex-direction: row;
     margin-bottom: 1rem;
     width: 100%;
+    justify-content: space-between;
+    border: 2px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 10px;
 }
-.rate {
-    margin-left: auto;
+
+.userText {
+    display: flex;
+    flex-direction: column;
 }
 </style>

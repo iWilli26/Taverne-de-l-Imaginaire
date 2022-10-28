@@ -17,11 +17,7 @@ export default {
     },
 
     methods: {
-        test() {
-            axiosPrivate.get("/test").then((res) => {
-                console.log(res.data);
-            });
-        },
+        test() {},
     },
     mounted() {},
 };

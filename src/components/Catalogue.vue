@@ -4,6 +4,7 @@
             <div class="games">
                 <GameCard
                     v-for="game in state.games.data"
+                    class="game"
                     :key="game.game_id"
                     :game="game"
                     @click="$router.push(`/game?id=${game.game_id}`)"
@@ -26,3 +27,12 @@ export default {
     },
 };
 </script>
+<style scoped>
+.game {
+    transition: transform 0.3s;
+}
+.game:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+</style>
