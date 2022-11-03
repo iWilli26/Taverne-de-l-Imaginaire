@@ -77,7 +77,7 @@ const updateUser = (request, response) => {
     })
 }
 
-const getAll = (reponse, request) => {
+const getAll = (request, response) => {
     pool.query(
         'SELECT user_id, last_name, first_name, username, email_address, is_admin FROM "LaTaverneDeLimaginaire".user',
         (error, results) => {

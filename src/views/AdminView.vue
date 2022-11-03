@@ -1,6 +1,7 @@
 <script setup>
 import NavbarAdmin from "../components/NavbarAdmin.vue"
 import GamesTable from "../components/GamesTable.vue"
+import UsersTable from "../components/UsersTable.vue"
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import GamesTable from "../components/GamesTable.vue"
         <el-container class="container">
             <NavbarAdmin />
                 <GamesTable v-if="$route.query.type === 'games'"/>
+                <UsersTable v-if="$route.query.type === 'users'"/>
         </el-container>
     </main>
 
