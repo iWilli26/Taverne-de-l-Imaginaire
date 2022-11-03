@@ -164,7 +164,26 @@ export default {
         }
 
         const editGame = () =>{
-
+            axios
+                .post(
+                    "http://localhost:8080/games/update",
+                    {
+                        name: formGames.name,
+                        editor: formGames.editor,
+                        author: formGames.author,
+                        average_time: formGames.average_time,
+                        number_of_player: formGames.number_of_player,
+                        description: formGames.description,
+                        id: formGames.id
+                    }
+                )
+                .then((response)=>{ 
+                    state = useGamesStore();
+                    state.fetchGames();
+                    console.log(response);
+                    
+                })
+                .catch((error) => console.log(error));
         }
 
         return { state, search, filterTableData, formGames, createGame, editGame, deleteGame, selectGame};
