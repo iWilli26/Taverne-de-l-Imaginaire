@@ -20,14 +20,28 @@
                 </el-form-item>
                 <el-col :span="24">
                     <el-form-item label="Description" class="description" style="--el-text-color-regular: #f8f8f8" >
-                        <el-input v-model="formGames.descritpion" type="textarea" style="--el-input-text-color: black"/>    
+                        <el-input v-model="formGames.description" type="textarea" style="--el-input-text-color: black"/>    
                     </el-form-item>
                 </el-col>
                 <el-row>
-                    <el-col :span="24">
+                    <el-col :span="8">
                         <el-form-item class="item-center">
                             <el-button @click="createGame" type="primary" class="item-center">
                                 ADD GAME
+                            </el-button>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-form-item class="item-center">
+                            <el-button @click="editGame" type="primary" class="item-center">
+                                EDIT GAME
+                            </el-button>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-form-item class="item-center">
+                            <el-button @click="deleteGame" type="primary" class="item-center">
+                                DELETE GAME
                             </el-button>
                         </el-form-item>
                     </el-col>
@@ -42,6 +56,7 @@
                 max-height="100vh"
                 style="width: 100%"
                 highlight-current-row
+                @current-change="selectGame"
                 class="overwrite-table"
             >
                 <el-table-column prop="game_id" label="Id" />
@@ -74,7 +89,7 @@ export default {
     name: "GamesTable",
     components: {},
     setup() {
-        const state = useGamesStore();
+        var state = useGamesStore();
         state.fetchGames();
 
         const search = ref("");
@@ -93,6 +108,7 @@ export default {
             average_time:'',
             number_of_player:'',
             description:'',
+            id:'',
         })
 
         const createGame = () => {
@@ -108,23 +124,50 @@ export default {
                         description: formGames.description
                     }
                 )
-                .then((response)=> console.log(response))
+                .then((response)=>{ 
+                    state = useGamesStore();
+                    state.fetchGames();
+                    console.log(response);
+                    
+                })
                 .catch((error) => console.log(error));
         }
 
-        const editGame= () =>{
-
+        const selectGame = (val) => {
+            if( val ) {
+                console.log(val);
+                formGames.name = val.name;
+                formGames.author = val.author;
+                formGames.editor = val.editor;
+                formGames.number_of_player = val.number_of_player;
+                formGames.average_time = val.average_time;
+                formGames.id = val.game_id;
+                formGames.description = val.description;
+            }
         }
 
         const deleteGame= () =>{
+            axios
+                .post(
+                    "http://localhost:8080/games/delete",
+                    {
+                        id: formGames.id
+                    }
+                )
+                .then((response)=>{ 
+                    state = useGamesStore();
+                    state.fetchGames();
+                    console.log(response);
+                    
+                })
+                .catch((error) => console.log(error));
+        }
+
+        const editGame = () =>{
 
         }
 
-        const updateGame = () =>{
-
-        }
-
-        return { state, search, filterTableData, formGames, createGame};
+        return { state, search, filterTableData, formGames, createGame, editGame, deleteGame, selectGame};
     },
     data() {
         return {};
