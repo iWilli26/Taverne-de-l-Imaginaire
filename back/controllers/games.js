@@ -38,13 +38,15 @@ const createGame = (request, response) => {
 
 const deleteGame = (request,response) => {
     let id_deleted = request.body.id
+    console.log(id_deleted);
     pool.query(
         `DELETE FROM "LaTaverneDeLimaginaire".game WHERE game_id = ${id_deleted}`,
         (error, results) => {
             if(error){
+                console.log(`DELETE FROM "LaTaverneDeLimaginaire".game WHERE game_id = ${id_deleted}`)
                 response
                     .status(500)
-                    .send('An error as occured, please see the code \n', error)
+                    .send(error)
             }
             else {
                 response
