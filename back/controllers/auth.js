@@ -7,7 +7,7 @@ const login = (request, response) => {
     pool.query(
         `SELECT * FROM "LaTaverneDeLimaginaire".user WHERE email_address ='${email}'`,
         (error, results) => {
-            if (results.rows.length == 1) {
+            if (results.rows.length === 1) {
                 bcrypt
                     .compare(request.body.password, results.rows[0].password)
                     .then((res) => {

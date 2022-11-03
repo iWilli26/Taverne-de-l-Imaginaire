@@ -3,6 +3,7 @@ import { reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { axiosPublic } from "../auth";
 import { useUserStore } from "../stores/user";
+import { InfoFilled, Delete, Edit } from "@element-plus/icons-vue";
 </script>
 <template>
     <div class="content">
@@ -40,7 +41,7 @@ import { useUserStore } from "../stores/user";
             <h2>Commentaires</h2>
             <div>
                 <el-form v-model="form">
-                    <el-rate allow-half v-model="form.value" :colors="colors" />
+                    <el-rate v-model="form.value" :colors="colors" />
                     <el-form-item>
                         <el-input
                             class="input"
@@ -62,21 +63,58 @@ import { useUserStore } from "../stores/user";
                     :key="comment.id"
                 >
                     <div class="userText">
-                        <div class="user">
+                        <div style="font-weight: bold">
                             {{ comment.username }}
                         </div>
-                        <div class="text">
+                        <div
+                            v-if="
+                                isEditing &&
+                                comment.comment_id === commentToEdit
+                            "
+                            class="text"
+                        >
+                            <el-input v-model="comment.text" type="textarea" />
+                        </div>
+                        <div v-else>
                             {{ comment.text }}
                         </div>
                     </div>
                     <div>
                         <div class="rate">
                             <el-rate
-                                allow-half
+                                v-if="!isEditing"
                                 v-model="comment.note"
                                 :colors="colors"
                                 :disabled="true"
+                            /><el-rate
+                                v-if="isEditing"
+                                v-model="comment.note"
+                                :colors="colors"
                             />
+                            <div v-if="comment.user_id === user.user_id">
+                                <el-button
+                                    @click="onEdit(comment)"
+                                    type="primary"
+                                    :icon="Edit"
+                                    circle
+                                />
+                                <el-popconfirm
+                                    confirm-button-text="OK"
+                                    cancel-button-text="No, Thanks"
+                                    :icon="InfoFilled"
+                                    icon-color="#626AEF"
+                                    title="Are you sure to delete this?"
+                                    @confirm="onDelete(comment.comment_id)"
+                                >
+                                    <template #reference>
+                                        <el-button
+                                            type="danger"
+                                            :icon="Delete"
+                                            circle
+                                        />
+                                    </template>
+                                </el-popconfirm>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,11 +137,14 @@ const currentDate = `${day}-${month}-${year}`;
 export default {
     data() {
         return {
+            user: JSON.parse(localStorage.getItem("user")),
             src: "./shadow.jpg",
             game: {},
             tags: [],
             form: {},
             comments: [],
+            isEditing: false,
+            commentToEdit: 0,
         };
     },
     mounted() {
@@ -119,25 +160,54 @@ export default {
         });
     },
     methods: {
-        onSubmit() {
+        refreshComments() {
             const id = this.$route.query.id;
-            const user = JSON.parse(localStorage.getItem("user"));
-            console.log(user);
+            axiosPublic.get(`/comment/${id}`).then((res) => {
+                this.comments = res.data.data;
+            });
+        },
+        onSubmit() {
+            console.log(this.comments);
+            console.log(this.user);
+            const id = this.$route.query.id;
             axiosPublic
                 .post(`/comment/${id}`, {
-                    user_id: user.user_id,
+                    user_id: this.user.user_id,
                     comment: form.comment,
                     date: currentDate,
                     value: form.value,
                 })
                 .then((res) => {
-                    console.log(res);
-                    this.comments.push({
-                        username: user.username,
-                        text: form.comment,
-                        note: form.value,
-                    });
+                    if (res.data.error !== undefined) {
+                        alert(res.data.error);
+                    }
+                    this.refreshComments();
                 });
+        },
+        onDelete(id) {
+            axiosPublic.delete(`/comment/delete/${id}`).then((res) => {
+                if (res.data.error !== undefined) {
+                    alert(res.data.error);
+                }
+                this.refreshComments();
+            });
+        },
+        onEdit(comment) {
+            if (this.isEditing) {
+                axiosPublic
+                    .patch(`/comment/edit/${comment.comment_id}`, {
+                        text: comment.text,
+                        note: comment.note,
+                    })
+                    .then((res) => {
+                        if (res.data.error !== undefined) {
+                            alert(res.data.error);
+                        }
+                        this.refreshComments();
+                    });
+            }
+            this.isEditing = !this.isEditing;
+            this.commentToEdit = comment.comment_id;
         },
     },
 };
@@ -181,10 +251,12 @@ img {
     margin-right: 1rem;
 }
 .comment {
+    font-size: 1.2rem;
     display: flex;
     flex-direction: row;
     margin-bottom: 1rem;
     width: 100%;
+    min-height: 80px;
     justify-content: space-between;
     border: 2px;
     border-style: solid;
@@ -195,5 +267,6 @@ img {
 .userText {
     display: flex;
     flex-direction: column;
+    width: 70vw;
 }
 </style>

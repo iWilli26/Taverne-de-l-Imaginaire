@@ -5,4 +5,8 @@ router.post("/:id", commentController.post);
 
 router.get("/:id", commentController.get);
 
+router.delete("/delete/:id", commentController.suppr);
+
+router.patch("/edit/:id", commentController.edit);
+
 module.exports = router;
