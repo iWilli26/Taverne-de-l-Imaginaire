@@ -30,7 +30,7 @@ const post = (request, response) => {
 };
 const get = (request, response) => {
     pool.query(
-        `select text,note,username,"LaTaverneDeLimaginaire".comment.user_id, comment_id from "LaTaverneDeLimaginaire".comment 
+        `select date,text,note,username,"LaTaverneDeLimaginaire".comment.user_id, comment_id from "LaTaverneDeLimaginaire".comment 
         INNER JOIN "LaTaverneDeLimaginaire".user 
         ON "LaTaverneDeLimaginaire".comment.user_id = "LaTaverneDeLimaginaire".user.user_id
         WHERE game_id=${request.params.id}`,
@@ -38,6 +38,10 @@ const get = (request, response) => {
             if (error) {
                 response.status(500).send({ error: error, data: undefined });
             } else {
+                for (let i = 0; i < results.rows.length; i++) {
+                    let date = results.rows[i].date.toISOString();
+                    results.rows[i].date = date.split("T")[0];
+                }
                 response
                     .status(200)
                     .send({ error: undefined, data: results.rows });

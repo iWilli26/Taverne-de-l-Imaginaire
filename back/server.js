@@ -10,6 +10,7 @@ const copyRouter = require("./routes/copy");
 const authRouter = require("./routes/auth");
 const tagRouter = require("./routes/tag");
 const commentRouter = require("./routes/comment");
+const borrowRouter = require("./routes/borrow");
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -28,6 +29,7 @@ app.use("/tag", tagRouter);
 app.use("/users", usersRouter);
 app.use("/copy", copyRouter);
 app.use("/comment", commentRouter);
+app.use("/borrow", borrowRouter);
 
 //Mettre le authenticateToken dans chaque truc ou faut être connecté
 app.get("/test", authenticateToken, (request, response) => {

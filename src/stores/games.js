@@ -14,7 +14,7 @@ export const useGamesStore = defineStore({
                     "http://localhost:8080/games/"
                 );
 
-                this.games = response.data;
+                this.games = response.data.data;
             } catch (error) {
                 console.log(error);
             }

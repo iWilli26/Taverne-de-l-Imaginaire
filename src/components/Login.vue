@@ -66,6 +66,11 @@ export default {
                     email: form.email,
                     password: form.password,
                 });
+                setTimeout(() => {
+                    if (useUserStore().isLogged) {
+                        window.location.href = "/";
+                    }
+                }, 1000);
             }
         },
     },

@@ -3,7 +3,7 @@
         <div class="content">
             <div class="games">
                 <GameCard
-                    v-for="game in state.games.data"
+                    v-for="game in state.games"
                     class="game"
                     :key="game.game_id"
                     :game="game"
