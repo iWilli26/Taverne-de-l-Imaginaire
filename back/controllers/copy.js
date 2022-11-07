@@ -12,19 +12,32 @@ const getAll = (request, response) => {
     );
 }
 
+const getAllwithTransfo = (request, response) =>{
+    pool.query(
+        'SELECT copy.*, game.name AS game_name, localisation.name AS localisation FROM "LaTaverneDeLimaginaire".copy LEFT JOIN "LaTaverneDeLimaginaire".game ON copy.game_id = game.game_id LEFT JOIN "LaTaverneDeLimaginaire".localisation ON copy.localisation_id = localisation.localisation_id',
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            response.status(200).json(results.rows);
+        }
+    )
+}
+
 const createCopy = (request, response) => {
+    console.log(request.body.game_id)
     let game_id = request.body.game_id
     let localisation_id = request.body.localisation_id
     let description = request.body.description
     let is_available = request.body.is_available
-
     pool.query(
         `INSERT INTO "LaTaverneDeLimaginaire".copy (game_id, localisation_id, description, is_available) VALUES (${game_id}, ${localisation_id}, '${description}', ${is_available})`,
         (error,results) => {
             if(error){
+                console.log(error);
                 response
                     .status(500)
-                    .send('An error as occured, please see the code \n', error)
+                    .send('An error as occured, please see the code \n')
             }
             else{
                 response
@@ -41,9 +54,10 @@ const deleteCopy = (request, response) => {
         `DELETE FROM "LaTaverneDeLimaginaire".copy WHERE copy_id = ${id_deleted}`,
         (error, results) => {
             if(error){
+                console.log(error)
                 response
                     .status(500)
-                    .send('An error as occured, please see the code \n', error)
+                    .send('An error as occured, please see the code \n')
             }
             else {
                 response
@@ -65,9 +79,10 @@ const updateCopy = (request, response) => {
         `UPDATE "LaTaverneDeLimaginaire".copy SET game_id = ${game_id}, localisation_id = ${localisation_id}, description = '${description}', is_available = ${is_available} WHERE copy_id = ${id_updated}`,
         (error,results) => {
             if(error){
+                console.log(error)
                 response
                     .status(500)
-                    .send('An error as occured, please see the code \n', error)
+                    .send('An error as occured, please see the code \n')
             }
             else{
                 response
@@ -79,4 +94,4 @@ const updateCopy = (request, response) => {
 }
 
 
-module.exports = { getAll, createCopy, deleteCopy, updateCopy };
+module.exports = { getAll, createCopy, deleteCopy, updateCopy, getAllwithTransfo };
