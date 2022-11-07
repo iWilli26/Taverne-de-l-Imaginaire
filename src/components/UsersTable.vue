@@ -26,22 +26,22 @@
                     <el-row>
                         <el-col :span="8">
                             <el-form-item class="item-center">
-                                <el-button @click="createGame" type="primary" class="item-center">
-                                    ADD GAME
+                                <el-button @click="createUser" type="primary" class="item-center">
+                                    ADD USER
                                 </el-button>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item class="item-center">
-                                <el-button @click="editGame" type="primary" class="item-center">
-                                    EDIT GAME
+                                <el-button @click="editUser" type="primary" class="item-center">
+                                    EDIT USER
                                 </el-button>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item class="item-center">
-                                <el-button @click="deleteGame" type="primary" class="item-center">
-                                    DELETE GAME
+                                <el-button @click="deleteUser" type="primary" class="item-center">
+                                    DELETE USER
                                 </el-button>
                             </el-form-item>
                         </el-col>
@@ -56,7 +56,7 @@
                     max-height="100vh"
                     style="width: 100%"
                     highlight-current-row
-                    @current-change="selectUser"
+                    @current-change="selectUsers"
                     class="overwrite-table"
                 >
                     <el-table-column prop="user_id" label="Id" />
@@ -108,83 +108,20 @@
                 is_admin: false,
                 id:'',
             })
-
-    
-            const createUsers = () => {
-                axios
-                    .post(
-                        "http://localhost:8080/games/create",
-                        {
-                            name: formGames.name,
-                            editor: formGames.editor,
-                            author: formGames.author,
-                            average_time: formGames.average_time,
-                            number_of_player: formGames.number_of_player,
-                            description: formGames.description
-                        }
-                    )
-                    .then((response)=>{ 
-                        state = useGamesStore();
-                        state.fetchGames();
-                        console.log(response);
-                        
-                    })
-                    .catch((error) => console.log(error));
-            }
     
             const selectUsers = (val) => {
                 if( val ) {
                     console.log(val);
-                    formGames.name = val.name;
-                    formGames.author = val.author;
-                    formGames.editor = val.editor;
-                    formGames.number_of_player = val.number_of_player;
-                    formGames.average_time = val.average_time;
-                    formGames.id = val.game_id;
-                    formGames.description = val.description;
+                    formUsers.first_name = val.first_name;
+                    formUsers.last_name = val.last_name;
+                    formUsers.username = val.username;
+                    formUsers.email_address = val.email_address;
+                    formUsers.is_admin = val.is_admin;
+                    formUsers.id = val.user_id;
                 }
             }
     
-            const deleteUsers= () =>{
-                axios
-                    .post(
-                        "http://localhost:8080/users/delete",
-                        {
-                            id: formUsers.id
-                        }
-                    )
-                    .then((response)=>{ 
-                        state = useGamesStore();
-                        state.fetchGames();
-                        console.log(response);
-                        
-                    })
-                    .catch((error) => console.log(error));
-            }
-    
-            const editGame = () =>{
-                axios
-                    .post(
-                        "http://localhost:8080/games/update",
-                        {
-                            name: formGames.name,
-                            editor: formGames.editor,
-                            author: formGames.author,
-                            average_time: formGames.average_time,
-                            number_of_player: formGames.number_of_player,
-                            description: formGames.description,
-                            id: formGames.id
-                        }
-                    )
-                    .then((response)=>{ 
-                        state = useGamesStore();
-                        state.fetchGames();
-                        console.log(response);
-                        
-                    })
-                    .catch((error) => console.log(error));
-                }
-            return { search, formUsers, createUsers, editGame, deleteUsers};
+            return { search, formUsers, selectUsers};
         },
         data() {
             return {
@@ -192,7 +129,77 @@
                 filterDataTable: []
             };
         },
-        methods: {},
+        methods: {
+            createUser(){
+                axios
+                    .post(
+                        "http://localhost:8080/users/create",
+                        {
+                            lastName: this.formUsers.last_name,
+                            firstName: this.formUsers.first_name,
+                            username: this.formUsers.username,
+                            email: this.formUsers.email_address,
+                            isAdmin: this.formUsers.is_admin,
+                            password: this.formUsers.password
+                        }
+                    )
+                    .then((response)=>{ 
+                        console.log(response);
+                        axios
+                            .get('http://localhost:8080/users')
+                            .then((response) => {
+                                this.users=response.data          
+                            })
+                        
+                    })
+                    .catch((error) => console.log(error));
+            },
+
+            deleteUser(){
+                axios
+                    .post(
+                        "http://localhost:8080/users/delete",
+                        {
+                            id: this.formUsers.id
+                        }
+                    )
+                    .then((response)=>{ 
+                        console.log(response);
+                        axios
+                            .get('http://localhost:8080/users')
+                            .then((response) => {
+                                this.users=response.data
+                            })
+                        
+                    })
+                    .catch((error) => console.log(error));
+            },
+
+            editUser(){
+                axios
+                    .post(
+                        "http://localhost:8080/users/update",
+                        {
+                            lastName: this.formUsers.last_name,
+                            firstName: this.formUsers.first_name,
+                            username: this.formUsers.username,
+                            email: this.formUsers.email_address,
+                            isAdmin: this.formUsers.is_admin,
+                            id: this.formUsers.id
+                        }
+                    )
+                    .then((response)=>{ 
+                        console.log(response);
+                        axios
+                            .get('http://localhost:8080/users')
+                            .then((response) => {
+                                this.users=response.data
+                            })
+                        
+                    })
+                    .catch((error) => console.log(error));
+                }
+        },
         computed: {
             filterTable() {
                 console.log(this.search);
