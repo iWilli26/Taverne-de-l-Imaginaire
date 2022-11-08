@@ -14,6 +14,22 @@ const getAll = (request, response) => {
         }
     );
 };
+
+const getAllwithTags = (request, response) => {
+    pool.query(
+        'SELECT G.name, number_of_player, average_time, description, T.name from "LaTaverneDeLimaginaire".game AS G INNER JOIN "LaTaverneDeLimaginaire".game_tag AS GT on G.game_id=GT.game_id INNER JOIN "LaTaverneDeLimaginaire".tag AS T ON GT.tag_id=T.tag_id',
+        (error, results) => {
+            if (error) {
+                response.status(500).send({ error: error, data: undefined });
+            } else {
+                response
+                    .status(200)
+                    .send({ error: undefined, data: results.rows });
+            }
+        }
+    );
+};
+
 const getGame = (request, response) => {
     pool.query(
         `SELECT * FROM "LaTaverneDeLimaginaire".game WHERE game_id = ${request.params.id}`,
@@ -88,4 +104,11 @@ const updateGame = (request, response) => {
     );
 };
 
-module.exports = { getAll, createGame, deleteGame, updateGame, getGame };
+module.exports = {
+    getAll,
+    createGame,
+    deleteGame,
+    updateGame,
+    getGame,
+    getAllwithTags,
+};

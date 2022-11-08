@@ -105,7 +105,8 @@ import { InfoFilled, Delete, Edit, Calendar } from "@element-plus/icons-vue";
             >
                 <p style="display: flex; flex-wrap: wrap; padding-bottom: 10px">
                     Vous ne pouvez emprunter un jeu que pour une semaine maximum
-                    {{ borrowId }}
+                    <br />
+                    2 jeux maximum par personne
                 </p>
                 <el-form :model="formBorrow">
                     <el-form-item
@@ -301,28 +302,32 @@ export default {
                 borrow_date: formBorrow.borrowDate,
                 return_date: formBorrow.returnDate,
             };
-            let date1 = new Date(borrow.borrow_date);
-            let date2 = new Date(borrow.return_date);
-            let difference =
-                (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24);
-            if (difference > 7) {
-                alert(
-                    "Vous ne pouvez pas emprunter un jeu pour plus de 7 jours"
-                );
+            if (borrow.borrow_date === "" || borrow.return_date === "") {
+                alert("Veuillez remplir les champs");
             } else {
-                axiosPublic.post("/borrow", borrow).then((res) => {
-                    if (res.data.error === undefined) {
-                        alert("Emprunt effectué");
-                        for (let i = 0; i < this.copies.length; i++) {
-                            if (this.copies[i].copy_id === borrow.copy_id) {
-                                this.copies[i].available = "Indisponible";
-                                this.copies[i].is_available = false;
+                let date1 = new Date(borrow.borrow_date);
+                let date2 = new Date(borrow.return_date);
+                let difference =
+                    (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24);
+                if (difference > 7) {
+                    alert(
+                        "Vous ne pouvez pas emprunter un jeu pour plus de 7 jours"
+                    );
+                } else {
+                    axiosPublic.post("/borrow", borrow).then((res) => {
+                        if (res.data.data !== undefined) {
+                            for (let i = 0; i < this.copies.length; i++) {
+                                if (this.copies[i].copy_id === borrow.copy_id) {
+                                    this.copies[i].available = "Indisponible";
+                                    this.copies[i].is_available = false;
+                                }
                             }
+                            alert("Emprunt effectué");
+                        } else {
+                            alert(res.data.error);
                         }
-                    } else {
-                        alert(res.data.error);
-                    }
-                });
+                    });
+                }
             }
         },
         refreshComments() {
@@ -380,7 +385,7 @@ export default {
     background-color: #3e6b27;
 }
 .indisp {
-    background-color: #393a3c;
+    background-color: #262727;
 }
 .copyWrapper {
     display: flex;
