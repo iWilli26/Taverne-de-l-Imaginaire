@@ -4,6 +4,7 @@ import Catalogue from "../views/CatalogueView.vue";
 import TestView from "../views/TestView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
+import GameDetailsView from "../views/GameDetailsView.vue";
 import AdminView from "../views/AdminView.vue";
 
 const router = createRouter({
@@ -23,12 +24,13 @@ const router = createRouter({
             component: Catalogue,
         },
         {
-            path: "/game/:id",
+            path: "/game",
             name: "gameDetails",
             // route level code-splitting
             // this generates a separate chunk (About.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            // component: GameDetailsView,
+            component: GameDetailsView,
+            // props: (route) => ({ query: route.query.id }),
         },
         {
             path: "/contact",

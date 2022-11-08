@@ -7,7 +7,9 @@
                     <h2>
                         {{ game.name }}
                     </h2>
-                    {{ game.description }}
+                    <el-scrollbar max-height="7vh">
+                        {{ game.description }}
+                    </el-scrollbar>
                 </div>
                 <div v-if="avis.note !== undefined" class="avis">
                     {{ avis.note }}

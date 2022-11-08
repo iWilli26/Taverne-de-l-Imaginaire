@@ -34,7 +34,6 @@ import { useUserStore } from "../stores/user.js";
 <script>
 import { reactive } from "vue";
 
-// do not use same name with ref
 const form = reactive({
     email: "",
     password: "",
@@ -67,6 +66,11 @@ export default {
                     email: form.email,
                     password: form.password,
                 });
+                setTimeout(() => {
+                    if (useUserStore().isLogged) {
+                        window.location.href = "/";
+                    }
+                }, 1000);
             }
         },
     },

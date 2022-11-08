@@ -8,10 +8,9 @@ export const useUserStore = defineStore({
         user: JSON.parse(localStorage.getItem("user")),
         returnUrl: null,
         isLogged: JSON.parse(localStorage.getItem("user")) ? true : false,
-        isAdmin: true 
-        // JSON.parse(localStorage.getItem("user"))
-        //     ? JSON.parse(localStorage.getItem("user")).is_admin
-        //     : false,
+        isAdmin: JSON.parse(localStorage.getItem("user"))
+            ? JSON.parse(localStorage.getItem("user")).is_admin
+            : false,
     }),
     actions: {
         async login({ email, password }) {

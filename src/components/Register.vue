@@ -2,6 +2,7 @@
 import GameCard from "../components/GameCard.vue";
 import axios from "axios";
 import { useUserStore } from "../stores/user";
+import { reactive } from "vue";
 </script>
 
 <template>
@@ -38,8 +39,6 @@ import { useUserStore } from "../stores/user";
 </template>
 
 <script>
-import { reactive } from "vue";
-
 // do not use same name with ref
 const form = reactive({
     name: "",
@@ -88,16 +87,15 @@ const onSubmit = () => {
             .catch(function (error) {
                 console.log(error);
             });
+        setTimeout(() => {
+            if (useUserStore().isLogged) {
+                window.location.href = "/";
+            }
+        }, 1000);
     }
 };
 export default {
     name: "Register",
-    setup() {},
-    components: {},
-    data() {
-        return {};
-    },
-    methods: {},
     mounted() {
         if (useUserStore().isLogged) {
             this.$router.push({ path: "/" });
