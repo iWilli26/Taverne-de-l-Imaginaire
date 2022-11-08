@@ -7,6 +7,7 @@ const { authenticateToken, createLog } = require("./middlewares/middleware");
 const gamesRouter = require("./routes/games");
 const usersRouter = require("./routes/users");
 const copyRouter = require("./routes/copy");
+const localisationRouter = require("./routes/localisation");
 const authRouter = require("./routes/auth");
 const tagRouter = require("./routes/tag");
 const commentRouter = require("./routes/comment");
@@ -30,6 +31,7 @@ app.use("/users", usersRouter);
 app.use("/copy", copyRouter);
 app.use("/comment", commentRouter);
 app.use("/borrow", borrowRouter);
+app.use("/localisation", localisationRouter);
 
 //Mettre le authenticateToken dans chaque truc ou faut être connecté
 app.get("/test", authenticateToken, (request, response) => {

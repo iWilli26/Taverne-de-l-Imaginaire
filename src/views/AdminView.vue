@@ -1,13 +1,17 @@
 <script setup>
 import NavbarAdmin from "../components/NavbarAdmin.vue"
 import GamesTable from "../components/GamesTable.vue"
+import UsersTable from "../components/UsersTable.vue"
+import CopyTable from "../components/CopyTable.vue";
 </script>
 
 <template>
     <main>
         <el-container class="container">
             <NavbarAdmin />
-            <GamesTable v-if="$route.query.type === 'games'"/>
+                <GamesTable v-if="$route.query.type === 'games'"/>
+                <UsersTable v-if="$route.query.type === 'users'"/>
+                <CopyTable v-if="$route.query.type === 'copy'"/>
         </el-container>
     </main>
 

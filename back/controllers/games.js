@@ -66,17 +66,22 @@ const createGame = (request, response) => {
     );
 };
 
-const deleteGame = (request, response) => {
-    let id_deleted = request.body.id;
+const deleteGame = (request,response) => {
+    let id_deleted = request.body.id
+    console.log(id_deleted);
     pool.query(
         `DELETE FROM "LaTaverneDeLimaginaire".game WHERE game_id = ${id_deleted}`,
         (error, results) => {
-            if (error) {
+            if(error){
+                console.log(error)
                 response
                     .status(500)
-                    .send("An error as occured, please see the code \n", error);
-            } else {
-                response.status(200).send("The game was succesfully deleted");
+                    .send('An error has occured, see the code')
+            }
+            else {
+                response
+                    .status(200)
+                    .send('The game was succesfully deleted')
             }
         }
     );
