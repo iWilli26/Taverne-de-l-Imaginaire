@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as conf from "../conf.json"
+import * as conf from "../conf_front.json"
 export const axiosPrivate = axios.create({
     baseURL: conf.Back.address + ":" + conf.Back.port,
     headers: {

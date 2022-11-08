@@ -1,5 +1,5 @@
 const { Pool } = require("pg");
-const conf = require('./conf')
+const conf = require('./conf_back')
 const pool = new Pool({
     user: conf.Account.name,
     host: conf.BDD.address,

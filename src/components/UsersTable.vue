@@ -202,7 +202,6 @@
         },
         computed: {
             filterTable() {
-                console.log(this.search);
                 this.filterDataTable=this.users.filter(
                         (data) =>
                             !this.search || data.username.toLowerCase().includes(this.search.toLowerCase())
