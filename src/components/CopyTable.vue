@@ -6,10 +6,10 @@
                     <el-form-item label="Game">
                         <el-select v-model="formCopy.game_id" class="m-2" placeholder="Select">
                             <el-option
-                            v-for="item in games"
-                            :key="item.game_id"
-                            :label="item.name"
-                            :value="item.game_id"
+                            v-for="game in games"
+                            :key="game.game_id"
+                            :label="game.name"
+                            :value="game.game_id"
                             />
                         </el-select>
                     </el-form-item>
@@ -90,23 +90,23 @@
     
     <script>
     import { ref, reactive } from "vue";
-    import axios from "axios";
+    import { axiosPublic } from "../auth";
     export default {
         name: "GamesTable",
         components: {},
         mounted() {
-            axios
-                .get('http://localhost:8080/copy/getTransfo')
+            axiosPublic
+                .get('/copy/getTransfo')
                 .then((response) => {
                     this.copy=response.data;
                 })
-            axios
-                .get('http://localhost:8080/games')
+            axiosPublic
+                .get('/games')
                 .then((response)=>{
-                    this.games=response.data;
+                    this.games=response.data.data;
                 })
-            axios
-                .get('http://localhost:8080/localisation')
+            axiosPublic
+                .get('/localisation')
                 .then((response)=>{
                     this.localisations= response.data
                 })
@@ -125,7 +125,6 @@
     
             const selectCopy = (val) => {
                 if( val ) {
-                    console.log(val);
                     formCopy.description = val.description;
                     formCopy.is_available = val.is_available;
                     formCopy.id = val.copy_id;
@@ -146,10 +145,9 @@
         },
         methods: {
             createCopy(){
-                console.log(this.formCopy);
-                axios
+                axiosPublic
                     .post(
-                        "http://localhost:8080/copy/create",
+                        "/copy/create",
                         {
                             localisation_id: this.formCopy.localisation_id,
                             game_id: this.formCopy.game_id,
@@ -159,8 +157,8 @@
                     )
                     .then((response)=>{ 
                         console.log(response);
-                        axios
-                            .get('http://localhost:8080/copy/getTransfo')
+                        axiosPublic
+                            .get('/copy/getTransfo')
                             .then((response) => {
                                 this.copy=response.data          
                             })
@@ -170,17 +168,17 @@
             },
 
             deleteCopy(){
-                axios
+                axiosPublic
                     .post(
-                        "http://localhost:8080/copy/delete",
+                        "/copy/delete",
                         {
                             id: this.formCopy.id
                         }
                     )
                     .then((response)=>{ 
                         console.log(response);
-                        axios
-                            .get('http://localhost:8080/copy/getTransfo')
+                        axiosPublic
+                            .get('/copy/getTransfo')
                             .then((response) => {
                                 this.copy=response.data
                             })
@@ -190,9 +188,9 @@
             },
 
             editCopy(){
-                axios
+                axiosPublic
                     .post(
-                        "http://localhost:8080/copy/update",
+                        "/copy/update",
                         {
                             localisation_id: this.formCopy.localisation_id,
                             game_id: this.formCopy.game_id,
@@ -203,8 +201,8 @@
                     )
                     .then((response)=>{ 
                         console.log(response);
-                        axios
-                            .get('http://localhost:8080/copy/getTransfo')
+                        axiosPublic
+                            .get('/copy/getTransfo')
                             .then((response) => {
                                 this.copy=response.data
                             })
@@ -215,7 +213,7 @@
         },
         computed: {
             filterTable() {
-                console.log(this.search);
+                
                 this.filterDataTable=this.copy.filter(
                         (data) =>
                             !this.search || data.game_name.toLowerCase().includes(this.search.toLowerCase())

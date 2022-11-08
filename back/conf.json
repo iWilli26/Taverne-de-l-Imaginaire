@@ -1,0 +1,12 @@
+{
+    "BDD": {
+        "address" : "localhost",
+        "port": "5432",
+        "name" : "LaTaverne"
+    },
+    "Account":{
+        "name": "application",
+        "password" : "root"
+    }
+}
+

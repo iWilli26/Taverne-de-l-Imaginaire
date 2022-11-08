@@ -1,6 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import axios from "axios";
+import { axiosPublic } from "../auth";
 export const useUserStore = defineStore({
     id: "user",
     state: () => ({
@@ -15,8 +15,8 @@ export const useUserStore = defineStore({
     actions: {
         async login({ email, password }) {
             try {
-                const response = await axios.post(
-                    "http://localhost:8080/login/",
+                const response = await axiosPublic.post(
+                    "/login/",
                     {
                         email: email,
                         password: password,
@@ -38,8 +38,8 @@ export const useUserStore = defineStore({
         },
         async signup({ firstName, lastName, email, username, password }) {
             try {
-                const response = await axios.post(
-                    "http://localhost:8080/signup/",
+                const response = await axiosPublic.post(
+                    "/signup/",
                     {
                         firstName: firstName,
                         lastName: lastName,

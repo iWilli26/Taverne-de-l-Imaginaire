@@ -84,7 +84,7 @@
 <script>
 import { useGamesStore } from "../stores/games.js";
 import { computed, ref, reactive } from "vue";
-import axios from "axios";
+import { axiosPublic } from "../auth" ;
 export default {
     name: "GamesTable",
     components: {},
@@ -112,9 +112,9 @@ export default {
         })
 
         const createGame = () => {
-            axios
+            axiosPublic
                 .post(
-                    "http://localhost:8080/games/create",
+                    "/games/create",
                     {
                         name: formGames.name,
                         editor: formGames.editor,
@@ -147,9 +147,9 @@ export default {
         }
 
         const deleteGame= () =>{
-            axios
+            axiosPublic
                 .post(
-                    "http://localhost:8080/games/delete",
+                    "/games/delete",
                     {
                         id: formGames.id
                     }
@@ -164,9 +164,9 @@ export default {
         }
 
         const editGame = () =>{
-            axios
+            axiosPublic
                 .post(
-                    "http://localhost:8080/games/update",
+                    "/games/update",
                     {
                         name: formGames.name,
                         editor: formGames.editor,

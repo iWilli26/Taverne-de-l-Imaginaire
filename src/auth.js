@@ -1,14 +1,14 @@
 import axios from "axios";
-
+import * as conf from "../conf.json"
 export const axiosPrivate = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: conf.Back.address + ":" + conf.Back.port,
     headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
     },
 });
 
 export const axiosPublic = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: conf.Back.address + ":" + conf.Back.port,
 });
 axiosPrivate.interceptors.request.use(
     function (config) {

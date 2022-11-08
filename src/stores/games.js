@@ -1,6 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import axios from "axios";
+import { axiosPublic } from "../auth";
 export const useGamesStore = defineStore({
     id: "games",
     state: () => ({
@@ -10,8 +10,8 @@ export const useGamesStore = defineStore({
     actions: {
         async fetchGames() {
             try {
-                const response = await axios.get(
-                    "http://localhost:8080/games/"
+                const response = await axiosPublic.get(
+                    "/games/"
                 );
 
                 this.games = response.data.data;

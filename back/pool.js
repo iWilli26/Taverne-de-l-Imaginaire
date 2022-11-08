@@ -1,9 +1,10 @@
 const { Pool } = require("pg");
+const conf = require('./conf')
 const pool = new Pool({
-    user: "application",
-    host: "localhost",
-    database: "LaTaverne",
-    password: "root",
-    port: "5432",
+    user: conf.Account.name,
+    host: conf.BDD.address,
+    database: conf.BDD.name,
+    password: conf.Account.password,
+    port: conf.BDD.port,
 });
 module.exports = pool;

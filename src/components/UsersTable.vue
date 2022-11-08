@@ -83,13 +83,13 @@
     
     <script>
     import { computed, ref, reactive } from "vue";
-    import axios from "axios";
+    import { axiosPublic } from "../auth";
     export default {
         name: "GamesTable",
         components: {},
         mounted() {
-            axios
-                .get('http://localhost:8080/users')
+            axiosPublic
+                .get('/users')
                 .then((response) => {
                     this.users=response.data;
                 })
@@ -131,9 +131,9 @@
         },
         methods: {
             createUser(){
-                axios
+                axiosPublic
                     .post(
-                        "http://localhost:8080/users/create",
+                        "/users/create",
                         {
                             lastName: this.formUsers.last_name,
                             firstName: this.formUsers.first_name,
@@ -145,8 +145,8 @@
                     )
                     .then((response)=>{ 
                         console.log(response);
-                        axios
-                            .get('http://localhost:8080/users')
+                        axiosPublic
+                            .get('/users')
                             .then((response) => {
                                 this.users=response.data          
                             })
@@ -156,17 +156,17 @@
             },
 
             deleteUser(){
-                axios
+                axiosPublic
                     .post(
-                        "http://localhost:8080/users/delete",
+                        "/users/delete",
                         {
                             id: this.formUsers.id
                         }
                     )
                     .then((response)=>{ 
                         console.log(response);
-                        axios
-                            .get('http://localhost:8080/users')
+                        axiosPublic
+                            .get('/users')
                             .then((response) => {
                                 this.users=response.data
                             })
@@ -176,9 +176,9 @@
             },
 
             editUser(){
-                axios
+                axiosPublic
                     .post(
-                        "http://localhost:8080/users/update",
+                        "/users/update",
                         {
                             lastName: this.formUsers.last_name,
                             firstName: this.formUsers.first_name,
@@ -190,8 +190,8 @@
                     )
                     .then((response)=>{ 
                         console.log(response);
-                        axios
-                            .get('http://localhost:8080/users')
+                        axiosPublic
+                            .get('/users')
                             .then((response) => {
                                 this.users=response.data
                             })
