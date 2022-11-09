@@ -19,6 +19,14 @@
                     <span>COPY</span>
                 </el-menu-item>
 
+                <el-menu-item @click="$router.push({ path: '/admin', query: { type: 'localisation' }})" index="5">
+                    <span>LOCALISATION</span>
+                </el-menu-item>
+
+                <el-menu-item @click="$router.push({ path: '/admin', query: { type: 'emprunt' }})" index="6">
+                    <span>EMPRUNT</span>
+                </el-menu-item>
+
             </el-menu>
         </el-aside>
     

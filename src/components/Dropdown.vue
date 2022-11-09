@@ -42,7 +42,7 @@ import { useUserStore } from "../stores/user.js";
             </div>
             <div
                 v-if="useUserStore().isAdmin"
-                @click="$router.push({ path: '/admin/'})"
+                @click="$router.push({ path: '/admin/', query: { type: 'games' }})"
                 class="sub-menu-item menu-item"
             >
                 Admin
