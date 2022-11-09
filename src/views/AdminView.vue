@@ -3,6 +3,7 @@ import NavbarAdmin from "../components/NavbarAdmin.vue"
 import GamesTable from "../components/GamesTable.vue"
 import UsersTable from "../components/UsersTable.vue"
 import CopyTable from "../components/CopyTable.vue";
+import TagTable from "../components/TagTable.vue";
 </script>
 
 <template>
@@ -12,6 +13,7 @@ import CopyTable from "../components/CopyTable.vue";
                 <GamesTable v-if="$route.query.type === 'games'"/>
                 <UsersTable v-if="$route.query.type === 'users'"/>
                 <CopyTable v-if="$route.query.type === 'copy'"/>
+                <TagTable v-if="$route.query.type === 'tag'"/>
         </el-container>
     </main>
 
