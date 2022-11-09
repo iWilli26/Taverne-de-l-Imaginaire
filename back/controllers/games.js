@@ -15,13 +15,16 @@ const getAll = (request, response) => {
     );
 };
 
-const getAllwithTags = (request, response) => {
+const getTags = (request, response) => {
+    console.log("a");
     pool.query(
-        'SELECT G.name, number_of_player, average_time, description, T.name from "LaTaverneDeLimaginaire".game AS G INNER JOIN "LaTaverneDeLimaginaire".game_tag AS GT on G.game_id=GT.game_id INNER JOIN "LaTaverneDeLimaginaire".tag AS T ON GT.tag_id=T.tag_id',
+        'SELECT * from "LaTaverneDeLimaginaire".game',
         (error, results) => {
             if (error) {
+                console.log("test");
                 response.status(500).send({ error: error, data: undefined });
             } else {
+                console.log("teffffst");
                 response
                     .status(200)
                     .send({ error: undefined, data: results.rows });
@@ -66,22 +69,17 @@ const createGame = (request, response) => {
     );
 };
 
-const deleteGame = (request,response) => {
-    let id_deleted = request.body.id
+const deleteGame = (request, response) => {
+    let id_deleted = request.body.id;
     console.log(id_deleted);
     pool.query(
         `DELETE FROM "LaTaverneDeLimaginaire".game WHERE game_id = ${id_deleted}`,
         (error, results) => {
-            if(error){
-                console.log(error)
-                response
-                    .status(500)
-                    .send('An error has occured, see the code')
-            }
-            else {
-                response
-                    .status(200)
-                    .send('The game was succesfully deleted')
+            if (error) {
+                console.log(error);
+                response.status(500).send("An error has occured, see the code");
+            } else {
+                response.status(200).send("The game was succesfully deleted");
             }
         }
     );
@@ -115,5 +113,5 @@ module.exports = {
     deleteGame,
     updateGame,
     getGame,
-    getAllwithTags,
+    getTags,
 };

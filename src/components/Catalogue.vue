@@ -9,11 +9,7 @@
                 open
             </el-button>
             <el-drawer v-model="drawer" title="Select tags">
-                <el-checkbox-group
-                    v-model="checkBox"
-                    size="small"
-                    @change="handleChange"
-                >
+                <el-checkbox-group v-model="checkBox" size="small">
                     <el-checkbox-button
                         v-for="tag in tags"
                         :key="tag"
@@ -48,13 +44,32 @@ import { ref } from "vue";
 
 export default {
     mounted() {
-        axiosPublic.get("/games").then((response) => {
-            this.games = response.data.data;
-            this.catalogue = response.data.data;
-        });
-        axiosPublic.get("/tag").then((response) => {
+        axiosPublic.get("/tag/").then((response) => {
             this.tags = response.data.data;
         });
+        axiosPublic
+            .get("/tag/games")
+            .then((response) => {
+                this.tagsGame = response.data.data;
+            })
+            .then(() => {
+                axiosPublic.get("/games").then((response) => {
+                    this.games = response.data.data;
+                    for (let i = 0; i < this.games.length; i++) {
+                        let temp = [];
+                        for (let j = 0; j < this.tagsGame.length; j++) {
+                            if (
+                                this.games[i].game_id ===
+                                this.tagsGame[j].game_id
+                            ) {
+                                temp.push(this.tagsGame[j].name);
+                            }
+                            this.games[i].tags = temp;
+                        }
+                    }
+                    this.catalogue = this.games;
+                });
+            });
     },
     components: {
         GameCard,
@@ -67,23 +82,20 @@ export default {
             games: [],
             catalogue: [],
             tags: [],
+            tagsGame: [],
         };
     },
     methods: {
         handleChange() {
-            //filter games by tags
-            console.log(this.checkBox);
             if (this.checkBox.length == 0) {
                 this.catalogue = this.games;
             } else {
                 this.catalogue = this.games.filter((game) => {
-                    for (let i = 0; i < this.checkBox.length; i++) {
-                        console.log(game);
-                    }
-                    return false;
+                    return this.checkBox.every((tag) => {
+                        return game.tags.includes(tag);
+                    });
                 });
             }
-            console.log(this.catalogue);
         },
         searchProducts() {
             if (this.search == "") {
