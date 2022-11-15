@@ -113,5 +113,26 @@ const updateCopy = (request, response) => {
     );
 };
 
+const updateAvailableAtTrue = (request, response) => {
+    let id_updated = request.body.id
+    pool.query(
+        `UPDATE "LaTaverneDeLimaginaire".copy SET is_available = true WHERE copy_id = ${id_updated}`,
+        (error,results) => {
+            if(error){
+                console.log(error)
+                response
+                    .status(500)
+                    .send('An error as occured, please see the code \n')
+            }
+            else{
+                response
+                    .status(200)
+                    .send('The copy was succesfully updated')
+            }
+        }
+    );
 
-module.exports = { getAll, createCopy, deleteCopy, updateCopy, getAllwithTransfo, getCopy };
+}
+
+
+module.exports = { getAll, createCopy, deleteCopy, updateCopy, getAllwithTransfo, getCopy, updateAvailableAtTrue };

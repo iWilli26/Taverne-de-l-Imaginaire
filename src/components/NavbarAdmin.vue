@@ -23,16 +23,12 @@
                 index="3"
             >
                 <span>GAMES</span>
+
+                <el-menu-item @click="$router.push({ path: '/admin', query: { type: 'copy' }})" index="4">
+                    <span>COPY</span>
+                </el-menu-item>
             </el-menu-item>
 
-            <el-menu-item
-                @click="
-                    $router.push({ path: '/admin', query: { type: 'copy' } })
-                "
-                index="4"
-            >
-                <span>COPY</span>
-            </el-menu-item>
             <el-menu-item
                 @click="
                     $router.push({ path: '/admin', query: { type: 'tag' } })
@@ -41,8 +37,18 @@
             >
                 <span>TAG</span>
             </el-menu-item>
-        </el-menu>
-    </el-aside>
+
+                <el-menu-item @click="$router.push({ path: '/admin', query: { type: 'localisation' }})" index="6">
+                    <span>LOCALISATION</span>
+                </el-menu-item>
+
+                <el-menu-item @click="$router.push({ path: '/admin', query: { type: 'emprunt' }})" index="7">
+                    <span>EMPRUNT</span>
+                </el-menu-item>
+
+            </el-menu>
+        </el-aside>
+    
 </template>
 
 <script>

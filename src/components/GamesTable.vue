@@ -106,42 +106,40 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-            </el-form>
-        </el-row>
-
-        <el-row>
-            <el-col :span="24">
-                <el-table
-                    :data="filterTableData"
-                    max-height="100vh"
-                    style="width: 100%"
-                    highlight-current-row
-                    @current-change="selectGame"
-                    class="overwrite-table"
-                >
-                    <el-table-column prop="game_id" label="Id" />
-                    <el-table-column prop="name" label="Name" />
-                    <el-table-column
-                        prop="number_of_player"
-                        label="Number of Player"
-                    />
-                    <el-table-column prop="average_time" label="Average Time" />
-                    <el-table-column prop="description" label="Description" />
-                    <el-table-column prop="author" label="Author" />
-                    <el-table-column prop="editor" label="Editor" />
-                    <el-table-column align="right">
-                        <template #header>
-                            <el-input
-                                v-model="search"
-                                size="small"
-                                placeholder="Type to search"
-                            />
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </el-col>
-        </el-row>
-    </el-main>
+        </el-form>
+    </el-row>
+    
+    <el-row>
+        <el-col :span="24">
+            <el-table
+                :data="filterTableData"
+                max-height="100vh"
+                style="width: 100%"
+                highlight-current-row
+                @current-change="selectGame"
+                class="overwrite-table"
+            >
+                <el-table-column prop="game_id" label="Id" />
+                <el-table-column prop="name" label="Name" />
+                <el-table-column prop="number_of_player" label="Number of Player" />
+                <el-table-column prop="average_time" label="Average Time" />
+                <el-table-column prop="description" label="Description" />
+                <el-table-column prop="author" label="Author" />
+                <el-table-column prop="editor" label="Editor" />
+                <el-table-column align="right">
+                    <template #header>
+                        <el-input
+                            v-model="search"
+                            size="small"
+                            placeholder="Type to search"
+                            style="--el-text-color-regular: black"
+                        />
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-col>
+    </el-row>
+</el-main>
 </template>
 
 <script>

@@ -79,6 +79,7 @@
                                 v-model="search"
                                 size="small"
                                 placeholder="Type to search"
+                                style="--el-text-color-regular: black"
                             />
                         </template>
                     </el-table-column>

@@ -12,4 +12,7 @@ router.post("/delete", copyController.deleteCopy);
 router.post("/update", copyController.updateCopy);
 
 router.get("/:id", copyController.getCopy);
+
+router.post("/updateAvailableAtTrue", copyController.updateAvailableAtTrue);
+
 module.exports = router;

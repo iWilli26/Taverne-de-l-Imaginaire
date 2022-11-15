@@ -56,4 +56,30 @@ const post = (request, response) => {
     );
 };
 
-module.exports = { post };
+const getReturnWithTransfo = (request, response) => {
+        pool.query(
+            'SELECT borrow.*, "LaTaverneDeLimaginaire".user.username, game.name as game_name FROM "LaTaverneDeLimaginaire".borrow LEFT JOIN "LaTaverneDeLimaginaire".user ON borrow.user_id = "LaTaverneDeLimaginaire".user.user_id LEFT JOIN "LaTaverneDeLimaginaire".copy ON borrow.copy_id = "LaTaverneDeLimaginaire".copy.copy_id LEFT JOIN "LaTaverneDeLimaginaire".game ON "LaTaverneDeLimaginaire".copy.game_id = game.game_id WHERE borrow.return_date <= NOW()' ,
+            (error, results) => {
+                if (error) {
+                    throw error;
+                }
+                response.status(200).json(results.rows);
+            }
+        )
+}
+
+const updateDescription = (request, response) => {
+    let id_updated = request.body.borrow_id;
+    let description = request.body.description;
+    pool.query(
+        `UPDATE "LaTaverneDeLimaginaire".borrow SET description = ${description} WHERE borrow_id = ${id_updated}`,
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            response.status(200).json(results.rows);
+        }
+    )
+}
+
+module.exports = { post, getReturnWithTransfo };
