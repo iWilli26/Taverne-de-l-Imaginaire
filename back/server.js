@@ -10,6 +10,7 @@ const copyRouter = require("./routes/copy");
 const localisationRouter = require("./routes/localisation");
 const authRouter = require("./routes/auth");
 const tagRouter = require("./routes/tag");
+const gametagsRouter = require("./routes/gametags");
 const commentRouter = require("./routes/comment");
 const borrowRouter = require("./routes/borrow");
 
@@ -27,6 +28,7 @@ app.use(createLog);
 app.use(authRouter);
 app.use("/games", gamesRouter);
 app.use("/tag", tagRouter);
+app.use("/gametags", gametagsRouter);
 app.use("/users", usersRouter);
 app.use("/copy", copyRouter);
 app.use("/comment", commentRouter);

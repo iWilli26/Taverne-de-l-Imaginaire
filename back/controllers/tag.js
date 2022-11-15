@@ -47,4 +47,67 @@ const getTag = (request, response) => {
         }
     );
 };
-module.exports = { getAllwithGames, getTag, getAll };
+
+const createTag = (request, response) => {
+    let name = request.body.name
+    pool.query(
+        `INSERT INTO "LaTaverneDeLimaginaire".tag (name) VALUES ('${name}')`,
+        (error,results) => {
+            if(error){
+                console.log(error);
+                response
+                    .status(500)
+                    .send('An error as occured, please see the code \n')
+            }
+            else{
+                response
+                    .status(200)
+                    .send('The copy was succesfully created')
+            }
+        }
+    );
+};
+
+const deleteTag = (request, response) => {
+    let id_deleted = request.body.id;
+    pool.query(
+        `DELETE FROM "LaTaverneDeLimaginaire".tag WHERE tag_id = ${id_deleted}`,
+        (error, results) => {
+            if(error){
+                console.log(error)
+                response
+                    .status(500)
+                    .send('An error as occured, please see the code \n')
+            }
+            else {
+                response
+                    .status(200)
+                    .send('The copy was succesfully deleted')
+            }
+        }
+    );
+};
+
+const updateTag = (request, response) => {
+    let name = request.body.name;
+    let id_updated = request.body.id;
+
+    pool.query(
+        `UPDATE "LaTaverneDeLimaginaire".tag SET name = '${name}' WHERE tag_id = ${id_updated}`,
+        (error,results) => {
+            if(error){
+                console.log(error)
+                response
+                    .status(500)
+                    .send('An error as occured, please see the code \n')
+            }
+            else{
+                response
+                    .status(200)
+                    .send('The copy was succesfully updated')
+            }
+        }
+    );
+};
+
+module.exports = { getAllwithGames, getTag, getAll, createTag, updateTag, deleteTag };

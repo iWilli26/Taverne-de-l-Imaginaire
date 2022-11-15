@@ -6,6 +6,7 @@ import CopyTable from "../components/CopyTable.vue";
 import TagTable from "../components/TagTable.vue";
 import BorrowTable from "../components/BorrowTable.vue";
 import LocalisationTable from "../components/LocalisationTable.vue";
+import GameTagTable from "../components/GameTagTable.vue";
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import LocalisationTable from "../components/LocalisationTable.vue";
                 <TagTable v-if="$route.query.type === 'tag'"/>
                 <LocalisationTable v-if="$route.query.type === 'localisation'"/>
                 <BorrowTable v-if="$route.query.type == 'emprunt'"/>
+                <GameTagTable v-if="$route.query.type == 'game_tag'"/>
         </el-container>
     </main>
 

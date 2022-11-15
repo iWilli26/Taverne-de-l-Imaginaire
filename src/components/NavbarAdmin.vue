@@ -45,6 +45,10 @@
                     <span>EMPRUNT</span>
                 </el-menu-item>
 
+                <el-menu-item @click="$router.push({ path: '/admin', query: { type: 'game_tag' }})" index="8">
+                    <span>GAME TAGS</span>
+                </el-menu-item>
+
             </el-menu>
         </el-aside>
     
