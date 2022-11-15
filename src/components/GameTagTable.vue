@@ -1,26 +1,39 @@
 <template>
     <el-main>
         <el-row>
-            <el-form :model="formGameTags" :inline="true" class="overwrite-label">
-                    <el-form-item label="Tags">
-                        <el-select v-model="formGameTags.tags" multiple class="m-2" placeholder="Select">
-                            <el-option
+            <el-form
+                :model="formGameTags"
+                :inline="true"
+                class="overwrite-label"
+            >
+                <el-form-item label="Tags">
+                    <el-select
+                        v-model="formGameTags.tags"
+                        multiple
+                        class="m-2"
+                        placeholder="Select"
+                    >
+                        <el-option
                             v-for="tag in tags"
                             :key="tag.tag_id"
                             :label="tag.name"
                             :value="tag.tag_id"
-                            />
-                        </el-select>
-                    </el-form-item>
-                    <el-row>
-                        <el-col :span="8">
-                            <el-form-item class="item-center">
-                                <el-button @click="editGameTags" type="primary" class="item-center">
-                                    EDIT TAGS OF GAME
-                                </el-button>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
+                        />
+                    </el-select>
+                </el-form-item>
+                <el-row>
+                    <el-col :span="8">
+                        <el-form-item class="item-center">
+                            <el-button
+                                @click="editGameTags"
+                                type="primary"
+                                class="item-center"
+                            >
+                                EDIT TAGS OF GAME
+                            </el-button>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
             </el-form>
         </el-row>
 
@@ -62,19 +75,22 @@ export default {
     mounted() {
         axiosPublic.get("/tag/").then((response) => {
             this.tags = response.data.data;
-            console.log(this.tags)
+            console.log(this.tags);
         });
         axiosPublic.get("/tag/games").then((response) => {
             const tagsGame = response.data.data;
             axiosPublic.get("/games").then((response) => {
                 this.games = response.data.data;
                 for (let i = 0; i < this.games.length; i++) {
-                    let temp = [];
+                    let tempName = [];
+                    let tempId = [];
                     for (let j = 0; j < tagsGame.length; j++) {
                         if (this.games[i].game_id === tagsGame[j].game_id) {
-                            temp.push(tagsGame[j].name);
+                            tempName.push(tagsGame[j].name);
+                            tempId.push(tagsGame[j].tag_id);
                         }
-                        this.games[i].tags = temp;
+                        this.games[i].tags = tempName;
+                        this.games[i].ids = tempId;
                     }
                 }
                 console.log(this.games);
@@ -84,15 +100,15 @@ export default {
     setup() {
         const search = ref("");
 
-        const formGameTags= reactive({
+        const formGameTags = reactive({
             tags: [],
-            game_id:"",
-            name:"",
+            game_id: "",
+            name: "",
         });
 
         const selectGame = (val) => {
             if (val) {
-                formGameTags.tags=[];
+                formGameTags.tags = [];
                 formGameTags.name = val.name;
                 formGameTags.game_id = val.game_id;
             }
@@ -113,13 +129,10 @@ export default {
             axiosPublic
                 .post("/gametags/updateGameTags", {
                     ids: this.formGameTags.tags,
-                    game_id: this.formGameTags.game_id
+                    game_id: this.formGameTags.game_id,
                 })
                 .then((response) => {
                     console.log(response);
-
-
-
                 })
                 .catch((error) => console.log(error));
         },

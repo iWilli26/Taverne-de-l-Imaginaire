@@ -14,6 +14,7 @@
                         v-for="tag in tags"
                         :key="tag"
                         :label="tag.name"
+                        @change="handleChange"
                         style="margin: 5px"
                         >{{ tag.name }}</el-checkbox-button
                     >
@@ -87,6 +88,7 @@ export default {
     },
     methods: {
         handleChange() {
+            console.log(this.checkBox);
             if (this.checkBox.length == 0) {
                 this.catalogue = this.games;
             } else {
