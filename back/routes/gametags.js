@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const gametagsController = require("../controllers/gametags");
 
-router.post("/updateGameTags", gametagsController.updateGameTags);
+router.post("/deleteGameTags", gametagsController.deleteGameTags);
+router.post("/createGameTags", gametagsController.createGameTags);
 
 module.exports = router;

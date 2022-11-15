@@ -108,7 +108,8 @@ export default {
 
         const selectGame = (val) => {
             if (val) {
-                formGameTags.tags = [];
+                console.log(val.ids);
+                formGameTags.tags = val.ids;
                 formGameTags.name = val.name;
                 formGameTags.game_id = val.game_id;
             }
@@ -127,11 +128,39 @@ export default {
         editGameTags() {
             console.log(this.formGameTags.tags);
             axiosPublic
-                .post("/gametags/updateGameTags", {
-                    ids: this.formGameTags.tags,
+                .post("/gametags/deleteGameTags", {
                     game_id: this.formGameTags.game_id,
                 })
                 .then((response) => {
+                    axiosPublic
+                        .post("/gametags/createGameTags", {
+                            game_id: this.formGameTags.game_id,
+                            ids: this.formGameTags.tags
+                    })
+                    .then((response =>{
+                        console.log(response);
+
+                        axiosPublic.get("/tag/games").then((response) => {
+                            const tagsGame = response.data.data;
+                            axiosPublic.get("/games").then((response) => {
+                                this.games = response.data.data;
+                                for (let i = 0; i < this.games.length; i++) {
+                                    let tempName = [];
+                                    let tempId = [];
+                                    for (let j = 0; j < tagsGame.length; j++) {
+                                        if (this.games[i].game_id === tagsGame[j].game_id) {
+                                            tempName.push(tagsGame[j].name);
+                                            tempId.push(tagsGame[j].tag_id);
+                                        }
+                                        this.games[i].tags = tempName;
+                                        this.games[i].ids = tempId;
+                                    }
+                                }
+                                console.log(this.games);
+                            });
+                        });
+                    }))
+
                     console.log(response);
                 })
                 .catch((error) => console.log(error));
