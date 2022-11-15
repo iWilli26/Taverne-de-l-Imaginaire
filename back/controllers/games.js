@@ -59,9 +59,7 @@ const createGame = (request, response) => {
         `INSERT INTO "LaTaverneDeLimaginaire".game (name, number_of_player, average_time, description, author, editor) VALUES ('${name}', '${number_of_player}', '${average_time}', '${description}', '${author}', '${editor}')`,
         (error, results) => {
             if (error) {
-                response
-                    .status(500)
-                    .send("An error as occured, please see the code \n", error);
+                response.status(500).send(error);
             } else {
                 response.status(200).send("The game was succesfully created");
             }
@@ -86,6 +84,7 @@ const deleteGame = (request, response) => {
 };
 
 const updateGame = (request, response) => {
+    console.log(request.body);
     let name = request.body.name;
     let number_of_player = request.body.number_of_player;
     let average_time = request.body.average_time;
@@ -93,13 +92,14 @@ const updateGame = (request, response) => {
     let author = request.body.author;
     let editor = request.body.editor;
     let id_updated = request.body.id;
+    console.log(
+        `UPDATE "LaTaverneDeLimaginaire".game SET name = '${name}', number_of_player = '${number_of_player}', average_time = '${average_time}', description = '${description}', author = '${author}', editor = '${editor}' WHERE game_id = ${id_updated}`
+    );
     pool.query(
         `UPDATE "LaTaverneDeLimaginaire".game SET name = '${name}', number_of_player = '${number_of_player}', average_time = '${average_time}', description = '${description}', author = '${author}', editor = '${editor}' WHERE game_id = ${id_updated}`,
         (error, results) => {
             if (error) {
-                response
-                    .status(500)
-                    .send("An error as occured, please see the code \n", error);
+                response.status(200).send(error);
             } else {
                 response.status(200).send("The game was succesfully updated");
             }
