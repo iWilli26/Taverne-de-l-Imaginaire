@@ -42,16 +42,20 @@ import { useUserStore } from "../stores/user.js";
             </div>
             <div
                 v-if="useUserStore().isAdmin"
-                @click="$router.push({ path: '/admin/', query: { type: 'games' }})"
+                @click="
+                    $router.push({ path: '/admin/', query: { type: 'games' } })
+                "
                 class="sub-menu-item menu-item"
             >
                 Admin
             </div>
 
-
             <div
                 v-if="useUserStore().isLogged"
-                @click="useUserStore().logout()"
+                @click="
+                    useUserStore().logout();
+                    $router.push({ path: '/' });
+                "
                 class="sub-menu-item menu-item"
             >
                 Logout
