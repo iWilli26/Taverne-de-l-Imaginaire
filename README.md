@@ -16,8 +16,6 @@
 
   <p align="center">
     <br />
-    <a href="https://github.com/iWilli26/Taverne-de-l-Imaginaire"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     <a href="https://github.com/iWilli26/Taverne-de-l-Imaginaire">View Demo</a>
     ·
@@ -98,23 +96,26 @@ Ce projet est un site web pour l'asociation de jeux de société "La Taverne de 
     npm install
     ```
 3. Create a database with pgAdmin 4
-4. Create a .env file in the root folder and add the following lines
+4. Import the db.sql to the database with pgAdmin 4
+5. Create a .env file in the root folder and add the following lines
+
     ```sh
-    DB_HOST=localhost
-    DB_USER=postgres
-    DB_PASSWORD=postgres
-    DB_DATABASE=postgres
-    DB_PORT=5432
+    PORT = 8080
+
+    JWT_SECRET_KEY = WhaterverYouWant
+
+    TOKEN_HEADER_KEY = SomethingSomething
     ```
-5. Run the server
+
+6. Run the server
     ```sh
     npm start
     ```
-6. Run the client
+7. Run the client
     ```sh
     npx vite --port=4000
     ```
-7. Open the client on http://localhost:4000/
+8. Open the client on http://localhost:4000/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -145,8 +146,15 @@ Don't forget to give the project a star! Thanks again!
 
 ## Contact
 
-William - [@iWilli26]
+William - [@iWilli26](https://twitter.com/willi_ng)
+<br />
+Discord : iWilli#2097
+<br />
+<br />
 Alexis - [@poirotman]
+<br />
+Discord : poirotman
+#7071
 
 Project Link: [https://github.com/iWilli26/Taverne-de-l-Imaginaire](https://github.com/iWilli26/Taverne-de-l-Imaginaire)
 
