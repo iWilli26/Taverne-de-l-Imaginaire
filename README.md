@@ -53,7 +53,7 @@
 
 ## About The Project
 
-Ce projet est un site web pour l'asociation de jeux de société "La Taverne de l'Imaginaire" de l'Institut Mines-Télécom Nord Europe. Il a été réalisé dans le cadre d'un projet ouvert de développeur web et web mobile.
+This project is a website for a role playing game club. It is a website where you can find all the information about the club, the games, the events, the rules, the contact information, etc.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -145,7 +145,7 @@ The frontend is divided in 3 parts : the public part, the member part and the ad
 
 <img src="public\MCD_MLD.drawio.png" alt="Database" width="800" height="400">
 
-## What remains
+## What remains to be done
 
 -   Home page with the next events using the event table
 -   Contact page
@@ -155,6 +155,11 @@ The frontend is divided in 3 parts : the public part, the member part and the ad
 -   Events table in admin page
 -   Fill the database with games and events
 -   There is a jsonwebtoken authentication but it is not used yet because i dont kno how to alert the user when his token is expired. So for now, the user is not logged out when his token is expired. (use axiosPrivate to fetch data only if the token is valid and axiosPublic if the token is not needed)
+-   Add images to the games in database and display them in the catalogue page + admin page
+-   Recontact Lille and Douai association to know what they want to do with the website
+-   Improve design
+-   Improve Security
+-   Create a log
 
 ## Contributing
 
@@ -175,17 +180,19 @@ Don't forget to give the project a star! Thanks again!
 
 ## Contact
 
-William - [@iWilli26](https://twitter.com/willi_ng)
+Promo FISE23 William - [@iWilli26](https://twitter.com/willi_ng)
 <br />
 Discord : iWilli#2097
 <br />
 <br />
-Alexis - [@poirotman]
+Promo FISE23 Alexis - [@poirotman]
 <br />
 Discord : poirotman
 #7071
 
 Project Link: [https://github.com/iWilli26/Taverne-de-l-Imaginaire](https://github.com/iWilli26/Taverne-de-l-Imaginaire)
+<br />
+_Special thanks to [Alexandre Lam](https://github.com/alexandrelam) and [Victor Deliege](https://github.com/Meltical)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
