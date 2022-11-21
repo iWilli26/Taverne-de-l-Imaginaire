@@ -121,6 +121,31 @@ Ce projet est un site web pour l'asociation de jeux de société "La Taverne de 
 
 <!-- USAGE EXAMPLES -->
 
+## Architecture
+
+### BDD
+
+(faudrait juste mettre une image)
+
+### Back
+
+Le Back se compose de différents dossier ayant chacun son utilité:
+
+1. Le conf_back.json permet d'indiquer le chemin et le compte vers la Base Donnée
+
+2. server.js va faire le liens entre les routes et le Back
+
+3. Le dossier "routes" contient un fichier par table dans la base de données et chaque fichier indique l'url et la fonction qui sera lancer lord d'un appel.
+
+4. Le dossier "controllers" contient un fichier par table dans la base de données et chaque fichier contient les fonctions utilisé lors des appels.
+
+### Front
+
+1. "Views" contient les différentes pages du site web
+2. "Components" contient des élements utilisé par les pages du site web. Chaque élément est réutilisable sur différentes pages.
+
+(Je te laisse faire le reste je vois pas quoi dire de plus)
+
 ## Usage
 
 This website is used to manage the association "La Taverne de l'Imaginaire" of the Institut Mines-Télécom Nord Europe. It allows to manage the members, the events and the games of the association.
@@ -159,6 +184,15 @@ Discord : poirotman
 Project Link: [https://github.com/iWilli26/Taverne-de-l-Imaginaire](https://github.com/iWilli26/Taverne-de-l-Imaginaire)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## TO DO LIST
+
+1. Il faudrait finir principalement l'implémantation d'images en Base de Donnée et les afficher dans les pages web.
+2. Faire une réunion avec l'association de Lille pour avoir un avis sur le site.
+3. Revoir le design du site afin qu'il soit plus jolie et ergonomique
+4. Revoir la partie sécurité afin de s'assurer de sa viabilité et l'améliorer sinon
+5. Créer un journal de log afin d'avoir un aspect de supervision
+6. Enregistrer les jeux dans la Base de Donnée.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
