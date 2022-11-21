@@ -43,6 +43,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#documentation">Documentation</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -120,6 +121,7 @@ Ce projet est un site web pour l'asociation de jeux de société "La Taverne de 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 This website is used to manage the association "La Taverne de l'Imaginaire" of the Institut Mines-Télécom Nord Europe. It allows to manage the members, the events and the games of the association.
@@ -132,16 +134,6 @@ This website is used to manage the association "La Taverne de l'Imaginaire" of t
 
 The backend is done with Node.js and Express.js. Each table of the database is represented by a router and a controller. The routes are used to manage the requests from the client. The controllers are used to manage the requests from the routes. To connect to the database, we use the pg module. The authentication is done with jsonwebtoken. The password are hashed with bcrypt. To create a new function, you have to create a new router and a new controller or use an existing controller. Then, you have to import the router in the server.js file and add the route in your router file.
 We created 2 stores : game and user. in userStore, you can find the functions to login and register and also an isLogged and isAdmin boolean. In gameStore, you can find a games array containing all the games of the database.
-
-The Back is composed of different folders, each with its own purpose:
-
-1. The conf_back.json allows to indicate the path and the account to the Database
-
-2. server.js will make the link between the routes and the Back
-
-3. The "routes" folder contains one file per table in the database and each file indicates the url and the function that will be launched during a call.
-
-4. The folder "controllers" contains one file per table in the database and each file contains the functions used during the calls.
 
 ### Frontend
 
@@ -163,7 +155,6 @@ The frontend is divided in 3 parts : the public part, the member part and the ad
 -   Events table in admin page
 -   Fill the database with games and events
 -   There is a jsonwebtoken authentication but it is not used yet because i dont kno how to alert the user when his token is expired. So for now, the user is not logged out when his token is expired. (use axiosPrivate to fetch data only if the token is valid and axiosPublic if the token is not needed)
--   Create a log system to supervise the site
 
 ## Contributing
 
@@ -197,15 +188,6 @@ Discord : poirotman
 Project Link: [https://github.com/iWilli26/Taverne-de-l-Imaginaire](https://github.com/iWilli26/Taverne-de-l-Imaginaire)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## TO DO LIST
-
-1. Il faudrait finir principalement l'implémantation d'images en Base de Donnée et les afficher dans les pages web.
-2. Faire une réunion avec l'association de Lille pour avoir un avis sur le site.
-3. Revoir le design du site afin qu'il soit plus jolie et ergonomique
-4. Revoir la partie sécurité afin de s'assurer de sa viabilité et l'améliorer sinon
-5. Créer un journal de log afin d'avoir un aspect de supervision
-6. Enregistrer les jeux dans la Base de Donnée.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
