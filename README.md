@@ -152,6 +152,34 @@ This website is used to manage the association "La Taverne de l'Imaginaire" of t
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Documentation
+
+### Backend
+
+The backend is done with Node.js and Express.js. Each table of the database is represented by a router and a controller. The routes are used to manage the requests from the client. The controllers are used to manage the requests from the routes. To connect to the database, we use the pg module. The authentication is done with jsonwebtoken. The password are hashed with bcrypt. To create a new function, you have to create a new router and a new controller or use an existing controller. Then, you have to import the router in the server.js file and add the route in your router file.
+We created 2 stores : game and user. in userStore, you can find the functions to login and register and also an isLogged and isAdmin boolean. In gameStore, you can find a games array containing all the games of the database.
+
+### Frontend
+
+The frontend is done with Vue.js and Vite.js. We also use Element-plus for the design. The components are in the components folder and import them into your views to use them. The pages are in the views folder. The router is in the router folder. To create a new page, you have to create a new view in the views folder and add its route into the router. To create a new route, you have to add the route in the index.js file.
+
+The frontend is divided in 3 parts : the public part, the member part and the admin part. The public part is used to display the events and the games. The member part is used to display the events and the games, to manage the user's profile and also to borrow games. The admin part is used to display the events and the games and to manage the users, the events and the games. You can access the admin menu in the navbar **only** if you are an admin. (contact us a message to be an admin or have access to an admin account)
+
+### Database
+
+<img src="public\MCD_MLD.drawio.png" alt="Database" width="800" height="400">
+
+## What remains
+
+-   Home page with the next events using the event table
+-   Contact page
+-   My profile page with the option to edit and delete the user
+-   Redirect after login or register
+-   Catalogue page needs to be improved
+-   Events table in admin page
+-   Fill the database with games and events
+-   There is a jsonwebtoken authentication but it is not used yet because i dont kno how to alert the user when his token is expired. So for now, the user is not logged out when his token is expired. (use axiosPrivate to fetch data only if the token is valid and axiosPublic if the token is not needed)
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
