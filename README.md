@@ -120,32 +120,6 @@ Ce projet est un site web pour l'asociation de jeux de société "La Taverne de 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
-
-## Architecture
-
-### BDD
-
-(faudrait juste mettre une image)
-
-### Back
-
-Le Back se compose de différents dossier ayant chacun son utilité:
-
-1. Le conf_back.json permet d'indiquer le chemin et le compte vers la Base Donnée
-
-2. server.js va faire le liens entre les routes et le Back
-
-3. Le dossier "routes" contient un fichier par table dans la base de données et chaque fichier indique l'url et la fonction qui sera lancer lord d'un appel.
-
-4. Le dossier "controllers" contient un fichier par table dans la base de données et chaque fichier contient les fonctions utilisé lors des appels.
-
-### Front
-
-1. "Views" contient les différentes pages du site web
-2. "Components" contient des élements utilisé par les pages du site web. Chaque élément est réutilisable sur différentes pages.
-
-(Je te laisse faire le reste je vois pas quoi dire de plus)
-
 ## Usage
 
 This website is used to manage the association "La Taverne de l'Imaginaire" of the Institut Mines-Télécom Nord Europe. It allows to manage the members, the events and the games of the association.
@@ -158,6 +132,16 @@ This website is used to manage the association "La Taverne de l'Imaginaire" of t
 
 The backend is done with Node.js and Express.js. Each table of the database is represented by a router and a controller. The routes are used to manage the requests from the client. The controllers are used to manage the requests from the routes. To connect to the database, we use the pg module. The authentication is done with jsonwebtoken. The password are hashed with bcrypt. To create a new function, you have to create a new router and a new controller or use an existing controller. Then, you have to import the router in the server.js file and add the route in your router file.
 We created 2 stores : game and user. in userStore, you can find the functions to login and register and also an isLogged and isAdmin boolean. In gameStore, you can find a games array containing all the games of the database.
+
+The Back is composed of different folders, each with its own purpose:
+
+1. The conf_back.json allows to indicate the path and the account to the Database
+
+2. server.js will make the link between the routes and the Back
+
+3. The "routes" folder contains one file per table in the database and each file indicates the url and the function that will be launched during a call.
+
+4. The folder "controllers" contains one file per table in the database and each file contains the functions used during the calls.
 
 ### Frontend
 
@@ -179,6 +163,7 @@ The frontend is divided in 3 parts : the public part, the member part and the ad
 -   Events table in admin page
 -   Fill the database with games and events
 -   There is a jsonwebtoken authentication but it is not used yet because i dont kno how to alert the user when his token is expired. So for now, the user is not logged out when his token is expired. (use axiosPrivate to fetch data only if the token is valid and axiosPublic if the token is not needed)
+-   Create a log system to supervise the site
 
 ## Contributing
 
